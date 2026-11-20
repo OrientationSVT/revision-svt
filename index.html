@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f766e">
+<title>Révision SVT Terminale</title>
+<style>
+:root{
+  --bg:#f6f8f7;--card:#ffffff;--ink:#1b2a27;--muted:#5b6b67;--line:#d5deda;
+  --pri:#0f766e;--pri-ink:#ffffff;--pri-soft:#d9f0ec;
+  --ok:#17803d;--ok-bg:#dff3e5;--ko:#b42318;--ko-bg:#fde3e0;--warn:#8a5a00;--warn-bg:#fff1cf;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#10191a;--card:#182524;--ink:#e8f0ee;--muted:#9fb3ae;--line:#2c3f3c;
+  --pri:#2dd4bf;--pri-ink:#06201d;--pri-soft:#17413c;
+  --ok:#6ee7a0;--ok-bg:#15361f;--ko:#ff9a8f;--ko-bg:#401a16;--warn:#ffd27a;--warn-bg:#3b2d0b;}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+header{background:var(--pri);color:var(--pri-ink)}
+header .wrap{padding-top:14px;padding-bottom:0}
+header h1{font-size:1.15rem;margin:0 0 10px;font-weight:700}
+nav{display:flex;gap:4px}
+nav button{flex:1;min-width:0;padding:0;font-size:.8rem;letter-spacing:-.01em;min-height:46px;border:0;background:transparent;color:inherit;font:inherit;font-weight:600;border-radius:10px 10px 0 0;cursor:pointer;opacity:.8}
+nav button[aria-current="page"]{background:var(--bg);color:var(--ink);opacity:1}
+main{padding:18px 0 40px}
+h2{font-size:1.25rem;margin:0 0 12px}
+h3{font-size:1.05rem;margin:18px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.muted{color:var(--muted);font-size:.92rem}
+.btn{display:block;width:100%;min-height:50px;border:0;border-radius:12px;background:var(--pri);color:var(--pri-ink);font:inherit;font-weight:700;padding:12px 16px;cursor:pointer;text-align:center}
+.btn.sec{background:var(--pri-soft);color:var(--ink);border:1px solid var(--line)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+fieldset{border:0;margin:0 0 14px;padding:0}
+legend{font-weight:700;margin-bottom:6px;padding:0}
+.opt{display:flex;align-items:center;gap:10px;min-height:46px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px;background:var(--card);cursor:pointer}
+.opt input{width:20px;height:20px;accent-color:var(--pri);flex:none}
+.opt span{flex:1}
+.progress{height:8px;border-radius:8px;background:var(--line);overflow:hidden;margin:0 0 14px}
+.progress>i{display:block;height:100%;background:var(--pri)}
+.badge{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--pri-soft);margin-right:6px}
+.qtext{font-size:1.08rem;font-weight:600;margin:8px 0 14px}
+.answers{display:flex;flex-direction:column;gap:8px}
+.ans{min-height:52px;text-align:left;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 14px;font:inherit;cursor:pointer}
+.ans.sel{border-color:var(--pri);background:var(--pri-soft)}
+.ans.good{border-color:var(--ok);background:var(--ok-bg)}
+.ans.bad{border-color:var(--ko);background:var(--ko-bg)}
+.ans[disabled]{cursor:default;color:var(--ink)}
+.fb{margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.fb.ok{border-color:var(--ok)}.fb.ko{border-color:var(--ko)}
+.fb b.ok{color:var(--ok)}.fb b.ko{color:var(--ko)}
+.score{font-size:2.6rem;font-weight:800;line-height:1.1}
+.flash{width:100%;min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:22px;font:inherit;cursor:pointer}
+.flash.back{border-color:var(--pri);background:var(--pri-soft)}
+.flash .t{font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.flash .c{font-size:1.35rem;font-weight:700;line-height:1.3}
+.flash .plus{font-size:.95rem;font-weight:400;color:var(--muted)}
+.flash .src{font-size:.8rem;color:var(--muted)}
+.boxes{display:flex;gap:8px;margin:8px 0}
+.boxes div{flex:1;text-align:center;padding:8px 4px;border-radius:10px;background:var(--pri-soft);font-size:.85rem}
+.boxes b{display:block;font-size:1.25rem}
+details{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;background:var(--card)}
+summary{cursor:pointer;font-weight:600}
+.flag{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:6px 10px;font-size:.88rem;margin-top:6px}
+.rl-item{border-bottom:1px solid var(--line);padding:10px 0;break-inside:avoid}
+.rl-item ul{margin:4px 0 4px 0;padding-left:20px}
+.rl-item li.right{font-weight:700;color:var(--ok)}
+footer{padding:0 0 30px}
+footer button{background:none;border:0;color:var(--muted);text-decoration:underline;font:inherit;cursor:pointer;min-height:44px}
+ .fig{width:100%;height:auto;display:block;margin:8px 0;font-family:inherit}
+.fig text{fill:var(--ink);font-size:16px}
+.fig .bt{font-size:14px}
+.fz:focus{outline:none}.fz:focus-visible .cov rect{stroke:var(--ink);stroke-width:2}
+.fig .c{fill:var(--card);stroke:var(--ink);stroke-width:1.5}
+.fig .m{fill:var(--ko-bg);stroke:var(--ko);stroke-width:3.5}
+.fig .ln{stroke:var(--muted);stroke-width:1.5;fill:none}
+.fig .ahp{fill:var(--muted)}
+.fig .box{fill:var(--pri-soft);stroke:var(--line);stroke-width:1.5}
+.fig .dash{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:5 4}
+.fig .fl{font-weight:700;fill:var(--pri)}
+.fig .cov rect{fill:var(--pri)} .fig .cov text{fill:var(--pri-ink);font-weight:800}
+.fz{cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none} .fz .fl{visibility:hidden} .fz.on .fl{visibility:visible} .fz.on .cov{display:none}
+.fig .let circle{fill:var(--warn-bg);stroke:var(--warn);stroke-width:2} .fig .let text{fill:var(--warn);font-weight:800}
+.crit{display:flex;gap:10px;align-items:flex-start;padding:6px 0}
+.crit input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--pri)}
+:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+@media print{header,footer,.noprint{display:none!important}body{background:#fff;color:#000}.card{border:0}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>Révision SVT · Terminale spécialité</h1>
+  <nav id="nav" aria-label="Navigation principale">
+    <button data-v="home">Accueil</button>
+    <button data-v="qcm">QCM</button>
+    <button data-v="cards">Flashcards</button>
+    <button data-v="sch">Schémas</button>
+  </nav>
+</div></header>
+<main class="wrap" id="app" aria-live="polite"></main>
+<footer class="wrap"><button id="relBtn">Mode relecture (enseignant)</button></footer>
+
+<script>
+const CHAPITRES=[];
+CHAPITRES.push({
+  id: "G1",
+  court: "Ch. 1 · Conservation des génomes",
+  titre: "Génétique et évolution · Chapitre 1 : La conservation des génomes : stabilité génétique et évolution clonale",
+  /* Schémas : figures dessinées (SVG), schémas à dessiner */
+  figs: {
+    "G1-f01": { titre: "Formation d'un clone et d'un sous-clone", vb: "0 0 400 326",
+      labels: {1:"Cellule mère unique", 2:"Mitoses successives", 3:"Cellule mutée", 4:"Sous-clone", 5:"Clone"},
+      draw: (L,A)=>{
+        const g0=[[197,30]], g1=[[107,100],[287,100]], g2=[[62,170],[152,170],[242,170],[332,170]],
+              g3=[40,85,130,175,220,265,310,355].map(x=>[x,240]), mut=[g2[3],g3[6],g3[7]];
+        let s="";
+        g1.forEach(c=>s+=A(g0[0],c));
+        g2.forEach((c,j)=>s+=A(g1[j>>1],c));
+        g3.forEach((c,j)=>s+=A(g2[j>>1],c));
+        [...g0,...g1,...g2,...g3].forEach(c=>{const m=mut.includes(c);s+=`<circle class="${m?"m":"c"}" cx="${c[0]}" cy="${c[1]}" r="12"/>`;});
+        s+=`<rect class="dash" x="290" y="150" width="86" height="108" rx="12"/>`;
+        s+=`<path class="ln" d="M28,288 v8 H369 v-8"/>`;
+        s+=`<line class="ln" x1="352" y1="86" x2="340" y2="158"/>`;
+        s+=L(1,215,35,"start")+L(2,12,40,"start")+L(3,392,78,"end")+L(4,333,276)+L(5,197,316);
+        return s;
+      } },
+    "G1-f02": { titre: "Cycle de vie de l'espèce humaine", vb: "0 0 400 366",
+      labels: {1:"Méiose", 2:"Fécondation", 3:"Mitoses", 4:"n = 23", 5:"Cellule-œuf"},
+      draw: (L,A)=>{
+        const box=(x,y,w,l1,l2)=>`<rect class="box" x="${x}" y="${y}" width="${w}" height="48" rx="8"/>`+
+          (typeof l1==="string"?`<text class="bt" x="${x+w/2}" y="${y+19}" text-anchor="middle">${l1}</text>`:l1(x+w/2,y+20))+
+          (typeof l2==="string"?`<text class="bt" x="${x+w/2}" y="${y+38}" text-anchor="middle">${l2}</text>`:l2(x+w/2,y+40));
+        let s="";
+        s+=box(5,10,185,"Lignée germinale (père)","2n = 46")+box(210,10,185,"Lignée germinale (mère)","2n = 46");
+        s+=A([95,56],[95,120],0)+A([305,56],[305,120],0);
+        s+=box(30,120,130,"Spermatozoïde",(x,y)=>L(4,x,y))+box(240,120,130,"Ovocyte",(x,y)=>L(4,x,y));
+        s+=A([110,166],[185,224],0)+A([290,166],[215,224],0);
+        s+=box(120,224,160,(x,y)=>L(5,x,y),"2n = 46");
+        s+=A([200,270],[200,312],0);
+        s+=box(110,312,180,"Nouvel individu","2n = 46");
+        /* cycle refermé : le nouvel individu, devenu adulte, possède à son tour une lignée germinale */
+        s+=`<path class="ln" d="M110,336 H16 V61" marker-end="url(#ah)"/><path class="ln" d="M290,336 H384 V61" marker-end="url(#ah)"/>`;
+        s+=`<text class="bt" transform="translate(30,268) rotate(-90)" text-anchor="middle">devenu adulte</text><text class="bt" transform="translate(370,268) rotate(90)" text-anchor="middle">devenu adulte</text>`;
+        s+=L(1,103,92,"start")+L(1,297,92,"end")+L(2,200,194)+L(3,210,296,"start");
+        return s;
+      } }
+  },
+  schemas: [
+    { id: "G1-s01", fig: "G1-f01", titre: "Clone et sous-clone",
+      consigne: "Schématise la formation d'un clone par trois générations de mitoses à partir d'une cellule unique. Fais apparaître une mutation et le sous-clone qui en dérive.",
+      criteres: ["Une seule cellule de départ", "Chaque mitose donne deux cellules filles", "Une cellule mutée bien repérée", "Toutes les cellules issues de la cellule mutée portent la mutation, et elles seules", "Légendes : cellule mère, mitoses, cellule mutée, sous-clone, clone", "Un titre"],
+      src: "Cours, diapos 22, 28, 31 et 42 · BO", verif: "Schéma original : à valider." },
+    { id: "G1-s02", fig: "G1-f02", titre: "Cycle de vie humain",
+      consigne: "Schématise le cycle de vie de l'espèce humaine : formation des gamètes, fécondation, développement. Indique le nombre de chromosomes à chaque étape.",
+      criteres: ["Méiose : on passe de 2n = 46 à n = 23", "Deux gamètes (spermatozoïde et ovocyte) à n = 23", "Fécondation : la cellule-œuf retrouve 2n = 46", "Mitoses de la cellule-œuf jusqu'au nouvel individu (2n = 46)", "Cycle refermé : le nouvel individu, devenu adulte, produit à son tour des gamètes", "Flèches orientées et nommées", "Un titre"],
+      src: "Cours, diapos 17, 18, 20 et 21", verif: "Schéma original : à valider." }
+  ],
+  qcm: [
+    // Compétence (champ n) : 1 = Restitution, 2 = Compréhension, 3 = Raisonnement
+    { id: "G1-q01", n: 1, q: "Dans une cellule eucaryote qui ne se divise pas, où se trouvent les chromosomes ?",
+      bonne: "Dans le noyau", faux: ["Dans le cytoplasme", "Dans les ribosomes", "Dans la membrane plasmique"],
+      expl: "Chez les eucaryotes, l'information génétique est localisée dans le noyau, au sein des chromosomes. Le cytoplasme, les ribosomes et la membrane plasmique ne contiennent pas les chromosomes.",
+      notion: "Support de l'information génétique (rappel)", src: "Cours, diapos 10 et 12" },
+    { id: "G1-q02", n: 1, q: "Comment appelle-t-on l'arrangement ordonné des chromosomes groupés par paires, caractéristique d'une espèce ?",
+      bonne: "Le caryotype", faux: ["Le génome", "La séquence", "La formule chromosomique"],
+      expl: "Le caryotype est l'arrangement ordonné des chromosomes. Le génome est l'ensemble des gènes, la séquence est la succession des nucléotides d'un gène, et la formule chromosomique est une convention d'écriture (2n = 46).",
+      notion: "Support de l'information génétique (rappel)", src: "Cours, diapos 12, 14 et 20" },
+    { id: "G1-q03", n: 1, q: "Que signifie le sigle ADN ?",
+      bonne: "Acide désoxyribonucléique", faux: ["Acide ribonucléique", "Acide dinucléique", "Acide nucléique double"],
+      expl: "L'ADN est l'acide désoxyribonucléique, support universel de l'information génétique. L'acide ribonucléique est l'ARN, une autre molécule. Les deux autres noms n'existent pas : « double » évoque la double hélice, mais n'apparaît pas dans le nom.",
+      notion: "Support de l'information génétique (rappel)", src: "Cours, diapo 12" },
+    { id: "G1-q04", n: 1, q: "Quelles lettres représentent les quatre types de nucléotides de l'ADN ?",
+      bonne: "A, C, G, T", faux: ["A, C, G, U", "A, T, G, U", "A, C, T, U"],
+      expl: "Les quatre nucléotides de l'ADN se distinguent par leur base azotée, notée A, C, G et T. La lettre U n'existe pas dans l'ADN (on la trouve dans l'ARN).",
+      notion: "Support de l'information génétique (rappel)", src: "Cours, diapo 12" },
+    { id: "G1-q05", n: 1, q: "D'après le cours, comment appelle-t-on l'ensemble des gènes d'un individu ?",
+      bonne: "Le génome", faux: ["Le caryotype", "La séquence", "Le chromosome"],
+      expl: "L'ensemble des gènes d'un individu est nommé le génome. Le caryotype est l'arrangement des chromosomes, la séquence est la succession des nucléotides d'un gène, et un chromosome ne porte qu'une partie des gènes.",
+      notion: "Support de l'information génétique (rappel)", src: "Cours, diapo 14" },
+    { id: "G1-q06", n: 1, q: "Qu'est-ce qu'une mutation ?",
+      bonne: "Une modification accidentelle de la séquence d'un gène",
+      faux: ["Une copie fidèle de la séquence d'un gène lors de la réplication", "Une modification d'une protéine sans changement de son gène", "La fabrication d'une protéine à partir de la séquence d'un gène"],
+      expl: "Une modification accidentelle dans la séquence du gène constitue une mutation. Une copie fidèle n'est pas une modification, une mutation touche le gène et non directement la protéine, et la fabrication d'une protéine correspond à la transcription puis à la traduction.",
+      notion: "Mutations (rappel de 1re)", src: "Cours, diapo 14" },
+    { id: "G1-q07", n: 1, q: "Qu'est-ce qu'un clone cellulaire ?",
+      bonne: "Des cellules génétiquement semblables issues d'une cellule unique par mitoses",
+      faux: ["Des cellules génétiquement semblables issues de plusieurs cellules par mitoses", "Des cellules génétiquement semblables issues d'une cellule unique par méioses", "Des cellules génétiquement différentes issues d'une cellule unique par méioses"],
+      expl: "Un clone est un ensemble de cellules génétiquement semblables obtenues par mitoses successives à partir d'une cellule unique. Il provient d'une seule cellule, et la méiose ne produit pas de clone.",
+      notion: "Notion de clone", src: "Cours, diapos 22 et 28 · BO" },
+    { id: "G1-q08", n: 1, q: "Quel est le résultat d'une mitose ?",
+      bonne: "Des cellules filles identiques à la cellule mère, avec le même nombre de chromosomes",
+      faux: ["Des cellules filles avec deux fois moins de chromosomes que la cellule mère", "Des cellules filles avec deux fois plus de chromosomes que la cellule mère", "Des cellules filles différentes, avec chacune une partie des gènes de la cellule mère"],
+      expl: "La mitose est une reproduction à l'identique de la cellule mère : le nombre de chromosomes et l'information génétique sont conservés. La division par deux du nombre de chromosomes caractérise la méiose.",
+      notion: "Mitose et méiose (rappel)", src: "Cours, diapo 18" },
+    { id: "G1-q09", n: 1, q: "Quel mécanisme aboutit à la formation des gamètes ?",
+      bonne: "La méiose", faux: ["La mitose", "La fécondation", "La réplication de l'ADN"],
+      expl: "La méiose divise le nombre de chromosomes par deux et aboutit aux cellules reproductrices haploïdes (gamètes). La mitose fabrique les autres cellules du corps, la fécondation réunit deux gamètes, et la réplication copie l'ADN.",
+      notion: "Mitose et méiose (rappel)", src: "Cours, diapos 17 et 18" },
+    { id: "G1-q10", n: 1, q: "Dans la formule 2n = 46 d'une cellule somatique humaine, que représente 46 ?",
+      bonne: "Le nombre total de chromosomes de la cellule",
+      faux: ["Le nombre de paires de chromosomes de la cellule", "Le nombre de chromosomes d'un gamète", "Le nombre de gènes portés par la cellule"],
+      expl: "46 est le nombre total de chromosomes, groupés en 23 paires (2n : cellule diploïde). Un gamète en possède 23 (n = 23).",
+      notion: "Diploïdie et haploïdie (rappel)", src: "Cours, diapos 20 et 21" },
+
+    { id: "G1-q11", n: 1, q: "Quelle succession de mécanismes permet à la cellule de fabriquer une protéine à partir d'un gène ?",
+      bonne: "La transcription puis la traduction", faux: ["La traduction puis la transcription", "La réplication puis la traduction", "La réplication puis la transcription"],
+      expl: "La cellule fabrique, à partir de chaque gène, une ou plusieurs protéines grâce à la transcription puis à la traduction, dans cet ordre. La réplication copie l'ADN : elle ne fabrique pas de protéine.",
+      notion: "Information génétique et protéines (rappel)", src: "Cours, diapo 14" },
+    { id: "G1-q12", n: 2, q: "Pourquoi une cellule diploïde possède-t-elle chaque gène en deux exemplaires ?",
+      bonne: "Ses chromosomes vont par paires d'homologues qui portent les mêmes gènes",
+      faux: ["Chacun de ses chromosomes est formé de deux chromatides identiques", "Chacun de ses gènes est recopié une seconde fois lors de la mitose", "Ses chromosomes sexuels X et Y portent exactement les mêmes gènes"],
+      expl: "Les deux chromosomes d'une même paire (homologues) possèdent les mêmes gènes : chaque gène est donc présent en deux exemplaires. Le nombre de chromatides n'y change rien (une cellule diploïde à chromosomes simples a aussi chaque gène en deux exemplaires), et X et Y sont justement l'exception : ils ne portent pas les mêmes gènes.",
+      notion: "Diploïdie et haploïdie (rappel)", src: "Cours, diapos 12 et 20" },
+    { id: "G1-q13", n: 2, q: "Pourquoi la mitose assure-t-elle la stabilité génétique d'une cellule à ses cellules filles ?",
+      bonne: "C'est une reproduction à l'identique de la cellule mère",
+      faux: ["Elle répartit au hasard les chromosomes entre les cellules filles", "Elle corrige toutes les mutations avant chaque division", "Elle double le nombre de chromosomes des cellules filles"],
+      expl: "La mitose conserve le nombre de chromosomes et l'information génétique : c'est une reproduction à l'identique. Elle ne répartit pas les chromosomes au hasard et ne double pas leur nombre. Elle ne corrige pas toutes les mutations : sinon, il n'y aurait pas de sous-clones.",
+      notion: "Stabilité génétique par mitoses", src: "Cours, diapos 18 et 31" },
+    { id: "G1-q14", n: 2, q: "Comment sont organisées les cellules d'un clone de plasmocytes et celles d'un clone de l'épithélium intestinal ?",
+      bonne: "Plasmocytes : cellules séparées ; épithélium intestinal : cellules associées en tissu",
+      faux: ["Plasmocytes : cellules associées en tissu ; épithélium intestinal : cellules séparées", "Dans les deux clones, les cellules sont séparées les unes des autres", "Dans les deux clones, les cellules sont associées de façon stable en tissu"],
+      expl: "Un clone peut être constitué de cellules séparées, comme les plasmocytes (ou les bactéries, les lymphocytes B producteurs d'un seul anticorps), ou de cellules associées de façon stable en tissus, comme l'épithélium intestinal.",
+      notion: "Clones : cellules séparées ou associées", src: "Cours, diapo 28 · BO" },
+    { id: "G1-q15", n: 2, q: "Quelle fonction un clone de plasmocytes assure-t-il ?",
+      bonne: "La défense spécifique contre un agent pathogène",
+      faux: ["La régénération des tissus endommagés de l'organisme", "La reproduction asexuée de l'organisme entier", "La réparation de l'ADN des cellules endommagées"],
+      expl: "Les plasmocytes participent à la défense spécifique contre un agent pathogène. La régénération des tissus et la reproduction asexuée sont d'autres fonctions de clones. La réparation de l'ADN est un mécanisme interne à chaque cellule.",
+      notion: "Fonctions des clones cellulaires", src: "Cours, diapos 28 et 37" },
+    { id: "G1-q16", n: 2, q: "Le bouturage d'un plant de pomme de terre est…",
+      bonne: "une reproduction asexuée qui produit des clones de la plante mère",
+      faux: ["une reproduction sexuée qui produit des clones de la plante mère", "une reproduction asexuée qui produit des plants tous génétiquement différents", "une reproduction sexuée qui produit des plants tous génétiquement différents"],
+      expl: "Le bouturage multiplie une plante sans reproduction sexuée : les plants obtenus dérivent de la plante mère par mitoses et forment un clone. C'est un exemple de reproduction asexuée, l'une des fonctions des clones.",
+      notion: "Clones et agriculture", src: "Cours, diapos 23 et 28 · BO" },
+    { id: "G1-q17", n: 2, q: "Dans un clone, en l'absence d'échanges génétiques avec l'extérieur, d'où provient la diversité génétique ?",
+      bonne: "De l'accumulation de mutations successives dans les cellules",
+      faux: ["De méioses survenant dans certaines cellules du clone", "D'échanges de gènes entre les cellules du clone", "D'un brassage des chromosomes à chaque mitose"],
+      expl: "Sans échange génétique avec l'extérieur, la diversité d'un clone résulte de l'accumulation de mutations successives dans les différentes cellules. Un clone se forme par mitoses, sans méiose, et la mitose est une reproduction à l'identique.",
+      notion: "Évolution clonale", src: "BO · Cours, diapo 42" },
+    { id: "G1-q18", n: 2, q: "D'après le cours, à quel moment les mutations se produisent-elles en particulier ?",
+      bonne: "Pendant la réplication de l'ADN", faux: ["Pendant la transcription des gènes", "Pendant la traduction en protéines", "Pendant la fécondation"],
+      expl: "Les mutations se produisent au cours du cycle cellulaire, en particulier pendant la phase de réplication de l'ADN (erreurs de réplication). Transcription et traduction utilisent l'information sans modifier l'ADN.",
+      notion: "Origine des mutations", src: "Cours, diapos 41 et 42" },
+    { id: "G1-q19", n: 1, q: "Qu'est-ce qu'un sous-clone ?",
+      bonne: "L'ensemble des cellules qui dérivent d'une cellule mutée du clone",
+      faux: ["L'ensemble des cellules du clone restées sans aucune mutation", "L'ensemble des cellules du clone qui ont réparé leurs mutations", "Un petit clone issu de la fusion de deux cellules différentes"],
+      expl: "Chaque cellule mutée continue à se diviser et forme un sous-clone : la mutation est transmise à toutes les cellules qui en dérivent.",
+      notion: "Sous-clone", src: "Cours, diapos 31 et 42 · BO" },
+    { id: "G1-q20", n: 2, q: "À quelle condition une mutation peut-elle devenir héréditaire ?",
+      bonne: "Elle doit survenir dans une cellule de la lignée germinale",
+      faux: ["Elle doit survenir dans une cellule de la lignée somatique", "Elle doit d'abord modifier le phénotype de l'individu", "Elle doit survenir pendant le développement embryonnaire"],
+      expl: "Une mutation peut devenir héréditaire si et seulement si elle survient dans une cellule de la lignée germinale. Une mutation somatique peut modifier le phénotype (pelage, cancer) sans être transmise. Ce qui compte est la lignée, pas le moment.",
+      notion: "Mutations somatiques et germinales", src: "Cours, diapos 39 et 42" },
+
+    { id: "G1-q21", n: 2, q: "Un élève écrit : « Un clone est un ensemble de cellules toutes génétiquement identiques. » Quelle correction est la plus juste ?",
+      bonne: "Elles sont identiques aux mutations près ; une cellule mutée forme un sous-clone",
+      faux: ["La définition est juste : les mutations sont toutes réparées avant la division", "Elles sont toutes différentes, car chaque mitose modifie l'information génétique", "Elles sont identiques, sauf quand elles sont associées en tissu solide"],
+      expl: "Au fil des divisions, des mutations apparaissent et ne sont pas toutes réparées. Les cellules d'un clone sont donc identiques aux mutations près, et chaque cellule mutée forme un sous-clone. Cela vaut pour les cellules séparées comme pour les tissus.",
+      notion: "Clone et sous-clone", src: "Cours, diapos 29 et 31" },
+    { id: "G1-q22", n: 2, q: "Des cellules dont la protéine p53 est fonctionnelle subissent des dommages de leur ADN. Elles cessent de se diviser pendant un temps, puis certaines meurent. Comment l'expliquer ?",
+      bonne: "p53 bloque le cycle le temps de la réparation, puis élimine les cellules trop altérées",
+      faux: ["p53 répare elle-même l'ADN abîmé, ce qui oblige la cellule à arrêter ses divisions", "p53 est détruite par les dommages, ce qui bloque le cycle puis tue la cellule", "Les cellules entrent en méiose, ce qui interrompt leurs mitoses puis les tue"],
+      expl: "Activée quand l'ADN est endommagé, p53 bloque le cycle cellulaire, ce qui laisse le temps aux mécanismes de réparation d'intervenir. Elle déclenche ensuite la mort programmée des cellules dont l'ADN reste trop altéré. Ce n'est pas p53 qui répare l'ADN, et ces effets supposent une p53 active.",
+      notion: "Évolution clonale et cancer", src: "Cours, diapo 37",
+      verif: "Situation construite à partir du texte de la diapo 37 (l'observation décrite ne figure pas telle quelle dans le cours)." },
+    { id: "G1-q23", n: 2, q: "Une mutation rend la protéine p53 inactive dans une cellule. Quelle conséquence est attendue ?",
+      bonne: "Les cellules mutées survivent et se divisent en accumulant des mutations : des sous-clones apparaissent",
+      faux: ["Les cellules mutées meurent toutes, car leur ADN endommagé ne peut plus du tout être réparé", "Le cycle cellulaire reste bloqué en permanence : les cellules mutées cessent définitivement de se diviser", "Les mutations sont mieux réparées, car le cycle cellulaire n'est plus interrompu par la protéine p53"],
+      expl: "Sans p53 fonctionnelle, le contrôle disparaît : le cycle n'est plus bloqué et la mort programmée n'est plus déclenchée. Les cellules porteuses de mutations survivent, se divisent, accumulent de nouvelles mutations et forment des sous-clones génétiquement différents.",
+      notion: "Évolution clonale et cancer", src: "Cours, diapo 37" },
+    { id: "G1-q24", n: 3, q: "Données en partie fictives. Chez deux patients, le gène p53 des cellules tumorales porte une mutation : délétion d'un A en position 334 chez l'un, substitution d'un C par un T en position 833 chez l'autre. Chez chacun, le gène p53 de leurs cellules saines est normal. Que peut-on en déduire ?",
+      bonne: "Ces mutations sont apparues dans des cellules somatiques et n'ont pas été héritées",
+      faux: ["Ces mutations ont été héritées des parents, puisqu'elles touchent le gène p53", "Les deux patients portent une mutation héritée d'un même ancêtre commun", "Ces mutations sont apparues dans la lignée germinale, puisqu'elles causent un cancer"],
+      expl: "Une mutation héritée serait présente dans toutes les cellules du patient, y compris les cellules saines. Ici, elle n'existe que dans les cellules tumorales : elle est apparue dans une cellule somatique, puis a été transmise au sous-clone à l'origine de la tumeur. De plus, les deux mutations sont différentes, ce qui exclut une origine commune.",
+      notion: "Mutations somatiques et cancer", src: "Cours, diapos 32 à 34 et 42",
+      verif: "Dans le cours, les cellules saines viennent d'un individu témoin ; ici, j'ai ajouté que les cellules saines des patients eux-mêmes ont un gène normal, pour rendre la déduction possible." },
+    { id: "G1-q25", n: 3, q: "D'après le cours, le nombre de mutations liées aux erreurs de réplication dans un spermatozoïde est environ égal au nombre de divisions cellulaires D = 30 + 23n + 5, avec n = âge (en années) − 15, à raison d'une mutation par division. Quel est ce nombre pour un homme de 30 ans ?",
+      bonne: "380", faux: ["725", "375", "350"],
+      expl: "n = 30 − 15 = 15 ; D = 30 + 23 × 15 + 5 = 30 + 345 + 5 = 380. 725 vient de l'oubli du « − 15 » (n = 30) ; 375 de l'oubli du « + 5 » ; 350 de l'oubli du « 30 + ». C'est une estimation théorique : les mesures montrent plutôt 1,5 à 2 mutations de plus par année d'âge.",
+      notion: "Estimer le nombre de mutations", src: "Cours, diapos 40 et 41 · BO" },
+    { id: "G1-q26", n: 3, q: "Un chat présente une tache de couleur sur le flanc, due à une mutation apparue pendant son développement embryonnaire. La mutation est présente dans les cellules de peau de la tache, mais absente des cellules qui produisent ses gamètes. Quelle conclusion est juste ?",
+      bonne: "Elle a touché la lignée somatique : elle forme un clone de cellules de peau et ne sera pas transmise",
+      faux: ["Elle a touché la lignée germinale, puisqu'elle est apparue pendant le développement embryonnaire", "Elle sera transmise aux chatons, puisqu'elle modifie le phénotype de ce chat", "Elle a touché toutes les cellules du chat, mais ne s'exprime que dans la tache"],
+      expl: "La tache correspond à un clone de cellules de peau issu d'une cellule mutée : c'est la lignée somatique. Les cellules qui produisent les gamètes (lignée germinale) ne portent pas la mutation : elle n'est donc pas transmissible, même si elle modifie le phénotype. Le moment (embryon) ne suffit pas à dire quelle lignée est touchée.",
+      notion: "Mutations somatiques et germinales", src: "Cours, diapos 38, 39 et 42",
+      verif: "Situation construite à partir du document du chat (diapo 38) et de la diapo 39 ; la précision « absente des cellules qui produisent ses gamètes » est ajoutée pour que la conclusion soit certaine." },
+    { id: "G1-q27", n: 3, q: "Chez un embryon de chat, deux mutations apparaissent : M1 dans une cellule à l'origine d'une partie de la peau, M2 dans une cellule à l'origine des cellules qui produisent les gamètes. Que peut-on prévoir ?",
+      bonne: "M1 modifie le pelage de ce chat sans être transmise ; M2 peut être transmise à ses chatons",
+      faux: ["M1 peut être transmise à ses chatons ; M2 modifie seulement le pelage de ce chat", "M1 et M2 peuvent toutes deux être transmises, car elles sont apparues chez l'embryon", "Ni M1 ni M2 ne peuvent être transmises, car elles sont apparues après la fécondation"],
+      expl: "M1 touche la lignée somatique : elle peut modifier le phénotype de l'individu (pelage) mais n'est pas transmissible. M2 touche la lignée germinale : elle peut devenir héréditaire. Ce qui compte est la lignée touchée, pas le moment où la mutation apparaît.",
+      notion: "Mutations somatiques et germinales", src: "Cours, diapos 38, 39 et 42",
+      verif: "Situation construite à partir des diapos 38, 39 et 42 ; « peut être transmise » reprend « peuvent devenir héréditaires » (diapo 42)." },
+    { id: "G1-q28", n: 3, q: "Une cellule d'un clone perd définitivement un gène (accident génétique irréversible). Elle et toutes ses descendantes se divisent ensuite 10 fois de suite, sans mort cellulaire. Combien de cellules dépourvues de ce gène obtient-on ? (On rappelle que 2¹⁰ = 1 024.)",
+      bonne: "1 024", faux: ["512", "10", "1"],
+      expl: "Un accident génétique irréversible devient pérenne pour toute la lignée (sous-clone) qui dérive du mutant : les 2¹⁰ = 1 024 cellules issues de la cellule mutée sont toutes dépourvues du gène. 512 supposerait une transmission à la moitié des cellules seulement, 10 confond nombre de divisions et nombre de cellules, et 1 supposerait que la perte n'est pas transmise.",
+      notion: "Évolution clonale", src: "BO · Cours, diapo 31",
+      verif: "Calcul construit à partir de la phrase du BO (« devient pérenne pour toute la lignée »)." },
+    { id: "G1-q29", n: 3, q: "Données fictives. Dans une tumeur, le sous-clone A représente 90 % des cellules et le sous-clone B 10 %. Seules les cellules de B portent une mutation qui rend la protéine p53 inactive. Six mois plus tard, B représente 70 % des cellules. Quelle explication est la plus juste ?",
+      bonne: "B est sélectionné : sans p53 active, ses cellules mutées ne sont plus bloquées ni éliminées",
+      faux: ["B est sélectionné : sans p53 active, ses cellules réparent mieux leur ADN et se divisent plus", "B progresse, car les cellules de A ont reçu des cellules de B leur mutation de p53", "B progresse, car sa p53 inactive bloque définitivement le cycle des cellules de A"],
+      expl: "Sans p53 active, les cellules de B ne sont plus bloquées dans leur cycle ni éliminées par mort programmée quand leur ADN est altéré : elles survivent et prolifèrent davantage, et B est sélectionné. p53 ne répare pas l'ADN : elle laisse le temps aux mécanismes de réparation. Dans un clone, il n'y a pas d'échange de gènes entre cellules, et p53 agit dans la cellule qui la produit, pas sur ses voisines.",
+      notion: "Évolution clonale et cancer", src: "Cours, diapo 37 · BO",
+      verif: "Situation et pourcentages fictifs, construits à partir de la diapo 37 ; l'idée que p53 agit dans sa propre cellule n'est pas écrite telle quelle dans le cours." },
+    { id: "G1-q30", n: 2, q: "Des plants obtenus par bouturage à partir d'une même plante mère ont des séquences d'ADN identiques, sauf quelques différences ponctuelles. Comment l'interpréter ?",
+      bonne: "Ce sont des clones de la plante mère ; les différences sont des mutations",
+      faux: ["Ce ne sont pas des clones, puisque leurs séquences ne sont pas toutes identiques", "Ce sont des clones ; les différences viennent d'un brassage lors des mitoses", "Ce sont des descendants sexués ; les différences viennent de la fécondation"],
+      expl: "Les plants issus de bouturage dérivent de la plante mère par mitoses : ils forment un clone, génétiquement identique aux mutations près. Il n'y a ni méiose ni fécondation, et la mitose ne brasse pas l'information génétique.",
+      notion: "Clone et mutations", src: "Cours, diapos 23, 28 et 31",
+      verif: "Question de raisonnement construite à partir des définitions du cours ; elle ne figure pas telle quelle dans vos diapositives." },
+    { id: "G1-q31", n: 2, q: "Pour vérifier que des plants obtenus par bouturage sont des clones de la plante mère, on compare par électrophorèse leurs profils génétiques (ensemble des bandes d'ADN). Quel résultat le confirme ?",
+      bonne: "Les plants ont le même profil de bandes que la plante mère",
+      faux: ["Chaque plant a un profil de bandes différent de la plante mère", "Les plants ont le même profil entre eux, mais différent de la mère", "Les plants ont deux fois moins de bandes que la plante mère"],
+      expl: "Des cellules issues par mitoses d'une même plante mère ont la même information génétique : leurs profils de bandes sont identiques à celui de la mère. Des profils différents indiqueraient une autre origine, et un nombre de bandes divisé par deux évoque à tort la méiose.",
+      notion: "Clones et agriculture", src: "Cours, diapos 23 et 25 (document)" },
+    { id: "G1-q32", n: 3, q: "On injecte à des souris l'antigène 1 ou l'antigène 2. Chaque antigène provoque la formation d'un clone de plasmocytes. Dans un même clone, toutes les cellules ont la même séquence du gène de la région variable de l'anticorps ; cette séquence diffère d'un clone à l'autre. Comment l'interpréter ?",
+      bonne: "Chaque clone dérive par mitoses d'un seul lymphocyte B, différent selon l'antigène",
+      faux: ["Les deux clones dérivent d'un même lymphocyte B, modifié par chaque antigène", "Chaque plasmocyte d'un clone provient d'un lymphocyte B différent", "Les cellules de chaque clone ont fusionné pour produire un seul anticorps"],
+      expl: "Un clone est formé de cellules issues par mitoses d'une cellule unique : ici, un lymphocyte B différent pour chaque antigène. C'est pourquoi la séquence est la même dans un clone et diffère d'un clone à l'autre. L'antigène sélectionne un lymphocyte B ; il ne modifie pas son gène.",
+      notion: "Fonctions des clones cellulaires", src: "Cours, diapos 26 (document) et 28 · BO" },
+    { id: "G1-q33", n: 2, q: "Les cellules de l'épithélium intestinal éliminées au sommet des villosités sont remplacées en permanence. D'où viennent les nouvelles cellules ?",
+      bonne: "De divisions de cellules souches situées au fond des cryptes",
+      faux: ["De méioses de cellules situées au sommet des villosités", "De cellules sanguines qui migrent dans l'épithélium", "De la fusion de plusieurs cellules épithéliales voisines"],
+      expl: "Les cellules souches du fond des cryptes se divisent ; leurs descendantes migrent vers le sommet des villosités, où elles sont éliminées (desquamation). Ce clone assure la régénération du tissu.",
+      notion: "Fonctions des clones cellulaires", src: "Cours, diapos 27 (document) et 28",
+      verif: "Le document de la diapo 27 montre les cellules souches, la migration et la desquamation, mais ne nomme pas les mitoses : « divisions » est déduit du schéma et de la définition du clone." },
+    { id: "G1-q34", n: 3, q: "Dans une tumeur, on observe des cellules mutées pour le gène APC, dont certaines portent aussi une mutation de Ras, et parmi elles certaines une mutation de p53. Comment expliquer cette organisation ?",
+      bonne: "Des mutations s'accumulent au fil des divisions et forment des sous-clones emboîtés",
+      faux: ["Les trois mutations sont apparues ensemble, lors d'une même division, dans toutes ces cellules", "Les trois mutations ont été héritées des parents du patient, puis transmises par mitoses", "Les cellules mutées ont échangé leurs gènes entre elles"],
+      expl: "Une cellule mutée pour APC forme un sous-clone ; dans ce sous-clone, une cellule acquiert une mutation de Ras et forme un nouveau sous-clone, et ainsi de suite. C'est l'accumulation de mutations successives au sein d'un clone, sans échange génétique. Des mutations héritées seraient présentes dans toutes les cellules du corps, pas seulement dans une partie de la tumeur.",
+      notion: "Évolution clonale et cancer", src: "Cours, diapos 30 et 36 (documents) et 42 · BO" },
+    { id: "G1-q35", n: 2, fig: {id:"G1-f01", letters:{4:"S"}, show:[1,2,3]}, q: "Sur ce schéma d'un clone, que représente l'ensemble de cellules entouré en pointillés et repéré par la lettre S ?",
+      bonne: "Un sous-clone : les cellules issues de la cellule mutée",
+      faux: ["Un second clone, issu d'une autre cellule mère", "Des cellules issues d'une méiose de la cellule mutée", "Des cellules qui ont réparé la mutation"],
+      expl: "La cellule mutée continue à se diviser par mitoses : toutes les cellules qui en dérivent portent la mutation et forment un sous-clone, au sein du clone issu de la cellule mère unique. Il n'y a ni autre cellule mère, ni méiose, ni réparation ici.",
+      notion: "Sous-clone", src: "Cours, diapos 31 et 42 · BO", verif: "Schéma original (G1-f01) : à valider." },
+    { id: "G1-q36", n: 2, fig: {id:"G1-f02", letters:{1:"A"}, show:[4,5]}, q: "Sur ce schéma du cycle de vie humain, quel mécanisme est repéré par la lettre A ?",
+      bonne: "La méiose", faux: ["La mitose", "La fécondation", "La réplication de l'ADN"],
+      expl: "Le mécanisme A fait passer de cellules à 2n = 46 chromosomes à des gamètes à n = 23 : le nombre de chromosomes est divisé par deux, c'est la méiose. La mitose conserve le nombre de chromosomes et la fécondation le rétablit à 2n.",
+      notion: "Mitose et méiose (rappel)", src: "Cours, diapos 17 et 18", verif: "Schéma original (G1-f02) : à valider." }
+  ],
+  cartes: [
+    // Ordre de la hiérarchie : 1) le clone (définition, organisation, fonctions) 2) stabilité 3) innovation : mutations, sous-clone, hérédité 4) application : cancer. (G1-c06 retirée, fusionnée dans G1-c07 ; identifiant à ne pas réutiliser.)
+    { id: "G1-c01", t: "Définition", q: "Qu'est-ce qu'un clone cellulaire ?", a: "Des cellules issues d'une cellule unique par mitoses.", plus: "Génétiquement identiques, aux mutations près.", src: "Cours, diapos 28 et 31 · BO" },
+    { id: "G1-c09", t: "Comparaison", q: "Un clone : cellules séparées ou associées ?", a: "Les deux sont possibles.", plus: "Séparées (plasmocytes) ou associées en tissu (épithélium intestinal).", src: "Cours, diapo 28 · BO" },
+    { id: "G1-c08", t: "Rôle", q: "Quelle est la fonction des clones cellulaires ?", a: "Elle est diverse : défense, régénération des tissus, reproduction asexuée.", plus: "Ex : plasmocytes (défense), bouturage (reproduction asexuée).", src: "Cours, diapos 23, 26 et 28" },
+    { id: "G1-c02", t: "Mécanisme", q: "Que conserve la mitose ?", a: "Le nombre de chromosomes et l'information génétique.", plus: "C'est une reproduction à l'identique de la cellule mère.", src: "Cours, diapo 18" },
+    { id: "G1-c03", t: "Cause", q: "D'où vient la diversité génétique dans un clone ?", a: "De l'accumulation de mutations.", plus: "Surtout pendant la réplication de l'ADN.", src: "BO · Cours, diapo 42" },
+    { id: "G1-c04", t: "Définition", q: "Qu'est-ce qu'un sous-clone ?", a: "Les cellules qui dérivent d'une cellule mutée.", plus: "Elles héritent toutes de la mutation.", src: "Cours, diapos 31 et 42 · BO" },
+    { id: "G1-c05", t: "Comparaison", q: "Quelle mutation peut devenir héréditaire ?", a: "Une mutation de la lignée germinale.", plus: "Une mutation somatique n'est pas transmise à la descendance.", src: "Cours, diapos 39 et 42" },
+    { id: "G1-c07", t: "Lien", q: "Pourquoi une p53 inactive favorise-t-elle les tumeurs ?", a: "Les cellules mutées survivent et forment des sous-clones qui prolifèrent.", plus: "Normalement, p53 bloque le cycle ou élimine la cellule si l'ADN est endommagé.", src: "Cours, diapos 35 et 37" },
+    { id: "G1-c10", t: "Schéma", fig: "G1-f01", q: "Légende le schéma d'un clone.", a: "Cellule mère unique, mitoses successives, cellule mutée, sous-clone, clone.", src: "Schéma original · Cours, diapos 28 et 31" },
+    { id: "G1-c11", t: "Schéma", fig: "G1-f02", q: "Légende le cycle de vie humain.", a: "Méiose (2n → n), fécondation (n + n → 2n), mitoses.", src: "Schéma original · Cours, diapos 17 et 18" }
+  ]
+});
+
+
+/* ---------- Stockage local (sans compte) ---------- */
+const KEY="svt_rev_v1";
+/* Intervalles (en jours) avant de revoir une carte : boîte 1 = à revoir, 2 = en cours, 3 = maîtrisée */
+const INTERVAL=[0,1,3,7];
+let mem=null;
+/* Jour local (entier) : sert à la répétition espacée */
+function today(){const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000);}
+function migrate(o){
+  o.hist=o.hist||[];o.wrong=o.wrong||{};o.cards=o.cards||{};o.sch=o.sch||{};
+  if(o.v!==2){ /* v1 : intervalles comptés en séances -> toutes les cartes déjà vues redeviennent à réviser aujourd'hui, sans perdre leur boîte */
+    const t=today();
+    Object.keys(o.cards).forEach(id=>{const s=o.cards[id];o.cards[id]={box:s.box||0,day:s.box?t-INTERVAL[s.box]:t};});
+    delete o.session;o.v=2;
+  }
+  return o;
+}
+function load(){
+  try{const s=localStorage.getItem(KEY);if(s){const o=JSON.parse(s);if(o&&o.cards)return migrate(o);}}catch(e){}
+  return mem||{v:2,cards:{},hist:[],wrong:{},sch:{}};
+}
+let P=load();
+function save(){mem=P;try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
+
+/* ---------- Utilitaires ---------- */
+const COMP={1:"Restitution",2:"Compréhension",3:"Raisonnement"};
+function compLabel(v){return COMP[v]||"Toutes compétences";}
+/* ---------- Figures (SVG) ---------- */
+function allFigs(){return Object.assign({},...CHAPITRES.map(c=>c.figs||{}));}
+/* mode : "quiz" (étiquettes numérotées à toucher), "all" (tout affiché), "letters" (lettres + étiquettes choisies) */
+function figSVG(id,mode,opt){
+  const f=allFigs()[id];if(!f)return"";opt=opt||{};
+  const L=(k,x,y,an)=>{an=an||"middle";const t=esc(f.labels[k]);
+    const w=96,rx=an==="middle"?x-w/2:an==="start"?x-7:x-w+7;
+    if(mode==="all"||(mode==="letters"&&(opt.show||[]).includes(k)))return `<text class="fl" x="${x}" y="${y}" text-anchor="${an}">${t}</text>`;
+    if(mode==="letters"){const l=(opt.letters||{})[k];if(!l)return"";const cx=an==="middle"?x:an==="start"?x+11:x-11;
+      return `<g class="let"><circle cx="${cx}" cy="${y-5}" r="11"/><text x="${cx}" y="${y}" text-anchor="middle">${esc(l)}</text></g>`;}
+    return `<g class="fz" data-k="${k}" role="button" tabindex="0" aria-label="Étiquette ${k}"><text class="fl" x="${x}" y="${y}" text-anchor="${an}">${t}</text><g class="cov"><rect x="${rx}" y="${y-17}" width="${w}" height="24" rx="6"/><text x="${rx+w/2}" y="${y}" text-anchor="middle">${k}</text></g></g>`;};
+  const A=(a,b,r)=>{r=r===undefined?12:r;const dx=b[0]-a[0],dy=b[1]-a[1],d=Math.hypot(dx,dy),ux=dx/d,uy=dy/d;
+    return `<line class="ln" x1="${(a[0]+ux*r).toFixed(1)}" y1="${(a[1]+uy*r).toFixed(1)}" x2="${(b[0]-ux*(r+3)).toFixed(1)}" y2="${(b[1]-uy*(r+3)).toFixed(1)}" marker-end="url(#ah)"/>`;};
+  return `<svg class="fig" viewBox="${f.vb}" role="img" aria-label="${esc(f.titre)}"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahp" d="M0,0L10,5L0,10z"/></marker></defs>${f.draw(L,A)}</svg>`;
+}
+function bindFig(root){root.querySelectorAll(".fz").forEach(z=>{const go=()=>root.querySelectorAll(`.fz[data-k="${z.dataset.k}"]`).forEach(y=>y.classList.add("on"));z.onclick=go;z.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}};});}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const app=$("#app");
+let view="home";
+function setNav(){document.querySelectorAll("#nav button").forEach(b=>{if(b.dataset.v===view)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");});}
+function go(v){view=v;if(location.hash)history.replaceState(null,"",location.pathname+location.search);render();window.scrollTo(0,0);}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>go(b.dataset.v));
+$("#relBtn").onclick=()=>{location.hash="#relecture";};
+window.addEventListener("hashchange",render);
+function chapChecks(name,prefix){
+  return CHAPITRES.map((c,i)=>`<label class="opt"><input type="checkbox" name="${name}" value="${esc(c.id)}" checked><span>${esc(c.court)} <span class="muted">(${prefix(c)})</span></span></label>`).join("");
+}
+function checked(name){return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(x=>x.value);}
+function radio(name){const r=document.querySelector(`input[name="${name}"]:checked`);return r?r.value:null;}
+
+/* ---------- Rendu principal ---------- */
+function render(){
+  setNav();
+  if(location.hash==="#relecture"){return renderRelecture();}
+  if(view==="home")return renderHome();
+  if(view==="qcm")return renderQcmSetup();
+  if(view==="cards")return renderCardsSetup();
+  if(view==="sch")return renderSchemas();
+}
+
+function renderHome(){
+  const last=P.hist.slice(-3).reverse();
+  app.innerHTML=`
+  <div class="card">
+    <h2>Bienvenue</h2>
+    <p>Révise ton cours de SVT avec des <b>QCM</b> par compétence (restitution, compréhension, raisonnement) et des <b>flashcards</b> à répétition espacée. Tout fonctionne sur ton appareil, sans compte.</p>
+    <div class="row"><button class="btn" data-go="qcm">Faire un QCM</button><button class="btn sec" data-go="cards">Flashcards</button></div>
+  </div>
+  ${(()=>{const n=CHAPITRES.flatMap(c=>c.cartes).filter(k=>isDue(k.id)).length;return `<div class="card"><b>${n}</b> flashcard(s) à réviser aujourd'hui.</div>`;})()}
+  ${last.length?`<div class="card"><h3 style="margin-top:0">Tes derniers QCM</h3>${last.map(h=>`<div class="muted">${esc(h.date)} · ${esc(compLabel(h.niv))} · <b>${h.score}/${h.total}</b></div>`).join("")}</div>`:""}
+  <div class="card muted">Contenu actuellement disponible : ${CHAPITRES.map(c=>esc(c.court)+" ("+c.qcm.length+" questions, "+c.cartes.length+" cartes, "+(c.schemas||[]).length+" schémas)").join(" · ")}</div>`;
+  app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+}
+
+/* ---------- QCM ---------- */
+let Q=null;
+function renderQcmSetup(){
+  Q=null;
+  app.innerHTML=`
+  <h2>Générer un QCM</h2>
+  <form id="f" class="card">
+    <fieldset><legend>Chapitres</legend>${chapChecks("chap",c=>c.qcm.length+" questions")}</fieldset>
+    <fieldset><legend>Type de questions</legend>
+      <label class="opt"><input type="radio" name="niv" value="1"><span><b>Restitution</b> · Connaître les définitions et le vocabulaire</span></label>
+      <label class="opt"><input type="radio" name="niv" value="2"><span><b>Compréhension</b> · Expliquer et relier les notions</span></label>
+      <label class="opt"><input type="radio" name="niv" value="3"><span><b>Raisonnement</b> · Exploiter une situation, des données ou un calcul</span></label>
+      <label class="opt"><input type="radio" name="niv" value="0" checked><span><b>Tout mélanger</b> · Les trois compétences</span></label>
+    </fieldset>
+    <fieldset><legend>Nombre de questions</legend>
+      <div class="row">
+        ${[5,10,15,20].map((n,i)=>`<label class="opt"><input type="radio" name="nb" value="${n}" ${n===10?"checked":""}><span>${n}</span></label>`).join("")}
+      </div>
+    </fieldset>
+    <fieldset><legend>Correction</legend>
+      <label class="opt"><input type="radio" name="cor" value="now" checked><span>Après chaque question</span></label>
+      <label class="opt"><input type="radio" name="cor" value="end"><span>À la fin du QCM</span></label>
+    </fieldset>
+    <p class="muted" id="avail"></p>
+    <button class="btn" type="submit">Générer mon QCM</button>
+  </form>`;
+  const f=$("#f");
+  function pool(){const ch=checked("chap"),n=+radio("niv");return CHAPITRES.filter(c=>ch.includes(c.id)).flatMap(c=>c.qcm.map(q=>({...q,chap:c.court}))).filter(q=>!n||q.n===n);}
+  function upd(){const p=pool();$("#avail").textContent=p.length?`${p.length} question(s) disponible(s) avec ces réglages.`:"Aucune question avec ces réglages.";f.querySelector("button[type=submit]").disabled=!p.length;}
+  f.addEventListener("change",upd);upd();
+  f.onsubmit=e=>{e.preventDefault();startQcm(pool(),+radio("nb"),radio("cor"),+radio("niv"));};
+}
+function startQcm(p,nb,mode,niv){
+  const sorted=p.map(q=>({q,k:Math.random()-0.3*(P.wrong[q.id]||0)})).sort((a,b)=>a.k-b.k).map(x=>x.q).slice(0,nb);
+  const list=shuffle(sorted).map(q=>({...q,opts:shuffle([{t:q.bonne,ok:true},...q.faux.map(t=>({t,ok:false}))])}));
+  Q={list,i:0,mode,niv,ans:[],locked:false,pick:null};
+  renderQ();
+}
+function renderQ(){
+  const q=Q.list[Q.i],tot=Q.list.length;
+  app.innerHTML=`
+  <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${tot}" aria-valuenow="${Q.i}"><i style="width:${(Q.i/tot)*100}%"></i></div>
+  <div class="muted">Question ${Q.i+1} / ${tot}</div>
+  <div class="card">
+    <div><span class="badge">${COMP[q.n]}</span><span class="muted">${esc(q.chap)}</span></div>
+    <div class="qtext">${esc(q.q)}</div>
+    ${q.fig?figSVG(q.fig.id,"letters",q.fig):""}
+    <div class="answers">${q.opts.map((o,k)=>`<button class="ans" data-k="${k}">${esc(o.t)}</button>`).join("")}</div>
+    <div id="fb"></div>
+  </div>
+  <button class="btn" id="next" disabled>${Q.i===tot-1?"Voir mon résultat":"Suivant"}</button>`;
+  Q.locked=false;Q.pick=null;
+  const btns=[...app.querySelectorAll(".ans")];
+  btns.forEach(b=>b.onclick=()=>{
+    if(Q.locked)return;
+    const k=+b.dataset.k;Q.pick=k;
+    if(Q.mode==="now"){
+      Q.locked=true;
+      btns.forEach((x,j)=>{x.disabled=true;if(q.opts[j].ok)x.classList.add("good");else if(j===k)x.classList.add("bad");});
+      const ok=q.opts[k].ok;
+      $("#fb").innerHTML=`<div class="fb ${ok?"ok":"ko"}"><b class="${ok?"ok":"ko"}">${ok?"Bonne réponse !":"Ce n'est pas la bonne réponse."}</b><br>${esc(q.expl)}</div>`;
+    }else{
+      btns.forEach(x=>x.classList.remove("sel"));b.classList.add("sel");
+    }
+    $("#next").disabled=false;
+  });
+  $("#next").onclick=()=>{
+    if(Q.pick===null)return;
+    Q.ans.push(Q.pick);
+    if(Q.i<tot-1){Q.i++;renderQ();window.scrollTo(0,0);}else finishQ();
+  };
+}
+function finishQ(){
+  let score=0;
+  Q.list.forEach((q,i)=>{const ok=q.opts[Q.ans[i]].ok;if(ok){score++;if(P.wrong[q.id])P.wrong[q.id]=Math.max(0,P.wrong[q.id]-1);}else P.wrong[q.id]=(P.wrong[q.id]||0)+1;});
+  const d=new Date();
+  P.hist.push({date:d.toLocaleDateString("fr-FR"),niv:Q.niv?String(Q.niv):"mixte",score,total:Q.list.length});
+  P.hist=P.hist.slice(-30);save();
+  const tot=Q.list.length,pc=score/tot;
+  const msg=pc===1?"Parfait !":pc>=.8?"Très bien !":pc>=.5?"Bien, continue pour consolider.":"À retravailler : relis le cours puis réessaie.";
+  const errs=Q.list.map((q,i)=>({q,i})).filter(x=>!x.q.opts[Q.ans[x.i]].ok);
+  const good=Q.list.map((q,i)=>({q,i})).filter(x=>x.q.opts[Q.ans[x.i]].ok);
+  app.innerHTML=`
+  <div class="card" style="text-align:center">
+    <div class="muted">Résultat</div>
+    <div class="score">${score} / ${tot}</div>
+    <p>${msg}</p>
+  </div>
+  ${errs.length?`<h3>À revoir (${errs.length})</h3>`+errs.map(({q,i})=>`
+    <div class="card">
+      <div class="qtext" style="margin-top:0">${esc(q.q)}</div>${q.fig?figSVG(q.fig.id,"letters",q.fig):""}
+      <div class="fb ko">Ta réponse : ${esc(q.opts[Q.ans[i]].t)}</div>
+      <div class="fb ok" style="margin-top:8px">Bonne réponse : <b>${esc(q.bonne)}</b><br><span class="muted">${esc(q.expl)}</span></div>
+    </div>`).join(""):""}
+  ${good.length?`<details><summary>Questions réussies (${good.length})</summary>${good.map(({q})=>`<p>✔ ${esc(q.q)}<br><span class="muted">${esc(q.bonne)}</span></p>`).join("")}</details>`:""}
+  <div class="row" style="margin-top:10px"><button class="btn" id="again">Nouveau QCM</button><button class="btn sec" id="cardsGo">Réviser en flashcards</button></div>`;
+  $("#again").onclick=()=>go("qcm");$("#cardsGo").onclick=()=>go("cards");
+  window.scrollTo(0,0);
+}
+
+/* ---------- Flashcards (répétition espacée simple, 3 boîtes) ---------- */
+let C=null;
+function cardState(id){return P.cards[id]||{box:0,day:today()};}
+function daysLeft(id){const s=cardState(id);return s.box===0?0:Math.max(0,INTERVAL[s.box]-(today()-s.day));}
+function isDue(id){return daysLeft(id)===0;}
+function nextDueText(cards){const d=Math.min(...cards.map(c=>daysLeft(c.id)));return d===1?"demain":"dans "+d+" jours";}
+function renderCardsSetup(){
+  C=null;
+  const all=CHAPITRES.flatMap(c=>c.cartes);
+  const cnt=[0,0,0,0];all.forEach(c=>cnt[cardState(c.id).box]++);
+  app.innerHTML=`
+  <h2>Flashcards</h2>
+  <div class="card">
+    <div class="muted">Ta progression</div>
+    <div class="boxes"><div><b>${cnt[0]}</b>nouvelles</div><div><b>${cnt[1]}</b>à revoir</div><div><b>${cnt[2]}</b>en cours</div><div><b>${cnt[3]}</b>maîtrisées</div></div>
+  </div>
+  <form id="f" class="card">
+    <fieldset><legend>Chapitres</legend>${chapChecks("chap",c=>c.cartes.length+" cartes")}</fieldset>
+    <fieldset><legend>Cartes à réviser</legend>
+      <label class="opt"><input type="radio" name="mode" value="due" checked><span><b>Mes cartes du jour</b> (répétition espacée)</span></label>
+      <label class="opt"><input type="radio" name="mode" value="all"><span><b>Toutes les cartes</b> des chapitres choisis</span></label>
+    </fieldset>
+    <fieldset><legend>Nombre de cartes</legend>
+      <div class="row">${[5,0].map(n=>`<label class="opt"><input type="radio" name="nb" value="${n}" ${n===0?"checked":""}><span>${n||"Toutes"}</span></label>`).join("")}</div>
+    </fieldset>
+    <p class="muted" id="avail"></p>
+    <button class="btn" type="submit">Commencer</button>
+  </form>
+  <button class="btn sec" id="reset">Réinitialiser ma progression</button>`;
+  const f=$("#f");
+  function pool(){const ch=checked("chap"),m=radio("mode");return CHAPITRES.filter(c=>ch.includes(c.id)).flatMap(c=>c.cartes.map(k=>({...k,chap:c.court}))).filter(k=>m==="all"||isDue(k.id));}
+  function upd(){const p=pool();const ch=CHAPITRES.filter(c=>checked("chap").includes(c.id)).flatMap(c=>c.cartes);
+    $("#avail").textContent=p.length?`${p.length} carte(s) à réviser.`:(ch.length?`Bravo, rien à réviser aujourd'hui ! Prochaines cartes ${nextDueText(ch)}. Tu peux aussi choisir « Toutes les cartes ».`:"Choisis au moins un chapitre.");
+    f.querySelector("button[type=submit]").disabled=!p.length;}
+  f.addEventListener("change",upd);upd();
+  f.onsubmit=e=>{e.preventDefault();startCards(pool(),+radio("nb"));};
+  $("#reset").onclick=()=>{if(confirm("Effacer ta progression sur les flashcards ?")){P.cards={};save();renderCardsSetup();}};
+}
+function startCards(p,nb){
+  let list=shuffle(p);if(nb)list=list.slice(0,nb);
+  C={queue:list,total:list.length,done:0,knew:0,again:0,flipped:false,requeued:{},ids:[]};
+  renderCard();
+}
+function renderCard(){
+  if(!C.queue.length)return finishCards();
+  const k=C.queue[0];
+  if(k.fig){
+    app.innerHTML=`
+    <div class="progress"><i style="width:${(C.done/C.total)*100}%"></i></div>
+    <div class="muted" style="margin-bottom:8px">Carte ${Math.min(C.done+1,C.total)} / ${C.total} · reste ${C.queue.length}</div>
+    <div class="card" style="text-align:center">
+      <div class="muted" style="font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase">${esc(k.t)}</div>
+      <div class="qtext" style="margin:6px 0">${esc(k.q)}</div>
+      ${figSVG(k.fig,C.flipped?"all":"quiz")}
+      ${C.flipped?`<div class="muted">${esc(k.a)}</div><div class="muted" style="font-size:.8rem;margin-top:4px">${esc(k.src)}</div>`:`<div class="muted">Retrouve chaque légende de tête, puis touche son numéro pour vérifier.</div>`}
+    </div>
+    ${C.flipped?`<div class="row"><button class="btn sec" id="again" style="border-color:var(--ko)">À revoir</button><button class="btn" id="knew">Je savais</button></div>`:`<button class="btn" id="flip">Tout afficher</button>`}`;
+    if(C.flipped){$("#again").onclick=()=>rate(k,false);$("#knew").onclick=()=>rate(k,true);}
+    else{bindFig(app);$("#flip").onclick=()=>{C.flipped=true;renderCard();};}
+    return;
+  }
+  app.innerHTML=`
+  <div class="progress"><i style="width:${(C.done/C.total)*100}%"></i></div>
+  <div class="muted" style="margin-bottom:8px">Carte ${Math.min(C.done+1,C.total)} / ${C.total} · reste ${C.queue.length}</div>
+  <button class="flash ${C.flipped?"back":""}" id="flip" aria-label="${C.flipped?"Réponse. Touche pour revenir à la question":"Question. Touche pour voir la réponse"}">
+    <span class="t">${C.flipped?"Réponse":esc(k.t)}</span>
+    <span class="c">${esc(C.flipped?k.a:k.q)}</span>
+    ${C.flipped&&k.plus?`<span class="plus">${esc(k.plus)}</span>`:""}
+    ${C.flipped?`<span class="src">${esc(k.src)}</span>`:`<span class="muted">Touche la carte pour voir la réponse</span>`}
+  </button>
+  ${C.flipped?`<div class="row" style="margin-top:12px"><button class="btn sec" id="again" style="border-color:var(--ko)">À revoir</button><button class="btn" id="knew">Je savais</button></div>`:""}`;
+  $("#flip").onclick=()=>{C.flipped=!C.flipped;renderCard();};
+  if(C.flipped){
+    $("#again").onclick=()=>rate(k,false);
+    $("#knew").onclick=()=>rate(k,true);
+  }
+}
+function rate(k,knew){
+  const s=cardState(k.id);
+  const wasNew=!C.requeued[k.id];
+  s.box=knew?Math.min(3,Math.max(1,s.box)+1):1;
+  s.day=today();P.cards[k.id]={box:s.box,day:s.day};save();
+  C.queue.shift();C.flipped=false;
+  if(knew){if(wasNew){C.knew++;}C.done++;}
+  else{
+    if(wasNew){C.again++;}
+    if(!C.requeued[k.id]){C.requeued[k.id]=true;C.queue.push(k);C.total++;}
+    else C.done++;
+  }
+  renderCard();window.scrollTo(0,0);
+}
+function finishCards(){
+  app.innerHTML=`
+  <div class="card" style="text-align:center">
+    <div class="muted">Séance terminée</div>
+    <div class="score">${C.knew} / ${C.knew+C.again}</div>
+    <p>${C.knew} carte(s) sue(s) du premier coup, ${C.again} à revoir. Les cartes difficiles reviendront plus souvent.</p>
+  </div>
+  <div class="row"><button class="btn" id="a">Nouvelle séance</button><button class="btn sec" id="b">Faire un QCM</button></div>`;
+  $("#a").onclick=()=>go("cards");$("#b").onclick=()=>go("qcm");
+  C=null;
+}
+
+/* ---------- Schémas à dessiner ---------- */
+function renderSchemas(){
+  const list=CHAPITRES.flatMap(c=>(c.schemas||[]).map(s=>({...s,chap:c.court})));
+  app.innerHTML=`<h2>Schémas</h2>
+  <div class="card muted">Prends une feuille. Lis la consigne, fais ton schéma <b>sans regarder ton cours</b>, puis compare-le au modèle avec la grille.</div>
+  ${list.length?list.map(s=>{const st=P.sch[s.id];return `<div class="card">
+    <div><span class="badge">${esc(s.chap)}</span>${st?`<span class="muted">${st.ok?"✔ réussi":"à retravailler"} le ${esc(st.date)}</span>`:""}</div>
+    <h3 style="margin:8px 0 4px">${esc(s.titre)}</h3><p style="margin:0 0 12px">${esc(s.consigne)}</p>
+    <button class="btn" data-s="${esc(s.id)}">J'ai fini mon schéma : voir le modèle</button></div>`;}).join(""):`<div class="card">Aucun schéma pour le moment.</div>`}`;
+  app.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>renderSchema(list.find(s=>s.id===b.dataset.s)));
+}
+function renderSchema(s){
+  app.innerHTML=`<h2>${esc(s.titre)}</h2>
+  <div class="card"><div class="muted">Consigne</div><p style="margin:4px 0 0">${esc(s.consigne)}</p></div>
+  <div class="card"><div class="muted">Modèle : ${esc(allFigs()[s.fig].titre)}</div>${figSVG(s.fig,"all")}<div class="muted" style="font-size:.8rem">${esc(s.src)}</div></div>
+  <div class="card"><h3 style="margin-top:0">Ma grille</h3><p class="muted" style="margin-top:0">Coche ce que ton schéma contient.</p>
+    ${s.criteres.map((c,i)=>`<label class="crit"><input type="checkbox" name="cr"><span>${esc(c)}</span></label>`).join("")}
+    <p class="muted" id="crs"></p></div>
+  <div class="row"><button class="btn sec" id="ko" style="border-color:var(--ko)">À retravailler</button><button class="btn" id="ok">Réussi</button></div>
+  <button class="btn sec" id="back" style="margin-top:10px">Retour aux schémas</button>`;
+  const upd=()=>{const n=checked("cr").length,t=s.criteres.length;$("#crs").textContent=`${n} / ${t} critère(s) réussi(s).`;};
+  app.querySelectorAll('input[name=cr]').forEach(x=>x.onchange=upd);upd();
+  const fin=ok=>{P.sch[s.id]={ok,date:new Date().toLocaleDateString("fr-FR")};save();renderSchemas();window.scrollTo(0,0);};
+  $("#ok").onclick=()=>fin(true);$("#ko").onclick=()=>fin(false);$("#back").onclick=()=>{renderSchemas();window.scrollTo(0,0);};
+  window.scrollTo(0,0);
+}
+
+/* ---------- Mode relecture enseignant ---------- */
+function renderRelecture(){
+  document.querySelectorAll("#nav button").forEach(b=>b.removeAttribute("aria-current"));
+  const flagged=CHAPITRES.flatMap(c=>[...c.qcm,...(c.schemas||[])]).filter(q=>q.verif).length;
+  app.innerHTML=`
+  <div class="noprint card">
+    <h2>Mode relecture (enseignant)</h2>
+    <p class="muted">Banque complète avec bonnes réponses, explications et sources. Les questions encadrées en jaune méritent une vérification particulière (${flagged}). Imprimable depuis le navigateur.</p>
+    <div class="row"><button class="btn" id="back">Retour à l'application</button><button class="btn sec" id="print">Imprimer</button></div>
+  </div>
+  ${CHAPITRES.map(c=>`
+    <h2>${esc(c.titre)}</h2>
+    <h3>QCM (${c.qcm.length})</h3>
+    ${[1,2,3].map(n=>`<h3>${COMP[n]} (${c.qcm.filter(q=>q.n===n).length})</h3>`+c.qcm.filter(q=>q.n===n).map((q,i)=>`<div class="rl-item">
+      <b>${esc(q.id)} · ${COMP[q.n]}</b> — ${esc(q.q)}${q.fig?figSVG(q.fig.id,"letters",q.fig):""}
+      <ul>${[q.bonne,...q.faux].map((t,k)=>`<li class="${k===0?"right":""}">${k===0?"✔ ":""}${esc(t)}</li>`).join("")}</ul>
+      <div class="muted">${esc(q.expl)}</div>
+      <div class="muted">Notion : ${esc(q.notion)} · Source : ${esc(q.src)}</div>
+      ${q.verif?`<div class="flag">À vérifier : ${esc(q.verif)}</div>`:""}
+    </div>`).join("")).join("")}
+    <h3>Flashcards (${c.cartes.length})</h3>
+    ${c.cartes.map(k=>`<div class="rl-item"><b>${esc(k.id)} · ${esc(k.t)}</b> — ${esc(k.q)}${k.fig?figSVG(k.fig,"all"):""}<br><b>${esc(k.a)}</b>${k.plus?` — ${esc(k.plus)}`:""}<div class="muted">Source : ${esc(k.src)}</div></div>`).join("")}
+    ${(c.schemas||[]).length?`<h3>Schémas à dessiner (${c.schemas.length})</h3>`+c.schemas.map(s=>`<div class="rl-item"><b>${esc(s.id)} · ${esc(s.titre)}</b> — ${esc(s.consigne)}${figSVG(s.fig,"all")}<ul>${s.criteres.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="muted">Source : ${esc(s.src)}</div>${s.verif?`<div class="flag">À vérifier : ${esc(s.verif)}</div>`:""}</div>`).join(""):""}
+  `).join("")}`;
+  $("#back").onclick=()=>{history.replaceState(null,"",location.pathname+location.search);view="home";render();};
+  $("#print").onclick=()=>window.print();
+  window.scrollTo(0,0);
+}
+
+render();
+</script>
+</body>
+</html>
