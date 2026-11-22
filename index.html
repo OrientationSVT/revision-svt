@@ -520,21 +520,23 @@ function finishQ(){
   P.hist=P.hist.slice(-30);save();
   const tot=Q.list.length,pc=score/tot;
   const msg=pc===1?"Parfait !":pc>=.8?"Très bien !":pc>=.5?"Bien, continue pour consolider.":"À retravailler : relis le cours puis réessaie.";
-  const errs=Q.list.map((q,i)=>({q,i})).filter(x=>!x.q.opts[Q.ans[x.i]].ok);
-  const good=Q.list.map((q,i)=>({q,i})).filter(x=>x.q.opts[Q.ans[x.i]].ok);
+  const nErr=tot-score;
   app.innerHTML=`
   <div class="card" style="text-align:center">
     <div class="muted">Résultat</div>
     <div class="score">${score} / ${tot}</div>
     <p>${msg}</p>
+    ${nErr?`<p class="muted" style="margin:0">${nErr} question(s) à revoir : elles sont marquées ✘ ci-dessous.</p>`:""}
   </div>
-  ${errs.length?`<h3>À revoir (${errs.length})</h3>`+errs.map(({q,i})=>`
+  <h3>Récapitulatif de tes réponses</h3>
+  ${Q.list.map((q,i)=>{const mine=q.opts[Q.ans[i]],ok=mine.ok;return `
     <div class="card">
-      <div class="qtext" style="margin-top:0">${esc(q.q)}</div>${q.fig?figSVG(q.fig.id,"letters",q.fig):""}
-      <div class="fb ko">Ta réponse : ${esc(q.opts[Q.ans[i]].t)}</div>
-      <div class="fb ok" style="margin-top:8px">Bonne réponse : <b>${esc(q.bonne)}</b><br><span class="muted">${esc(q.expl)}</span></div>
-    </div>`).join(""):""}
-  ${good.length?`<details><summary>Questions réussies (${good.length})</summary>${good.map(({q})=>`<p>✔ ${esc(q.q)}<br><span class="muted">${esc(q.bonne)}</span></p>`).join("")}</details>`:""}
+      <div><span class="badge">${ok?"✔ Juste":"✘ À revoir"}</span><span class="muted">Question ${i+1} · ${COMP[q.n]}</span></div>
+      <div class="qtext">${esc(q.q)}</div>${q.fig?figSVG(q.fig.id,"letters",q.fig):""}
+      <div class="fb ${ok?"ok":"ko"}">Ta réponse : <b>${esc(mine.t)}</b></div>
+      ${ok?"":`<div class="fb ok" style="margin-top:8px">Bonne réponse : <b>${esc(q.bonne)}</b></div>`}
+      ${ok?`<details style="margin-top:8px"><summary>Pourquoi ?</summary><p class="muted" style="margin:6px 0 0">${esc(q.expl)}</p></details>`:`<p class="muted" style="margin:8px 0 0">${esc(q.expl)}</p>`}
+    </div>`;}).join("")}
   <div class="row" style="margin-top:10px"><button class="btn" id="again">Nouveau QCM</button><button class="btn sec" id="cardsGo">Réviser en flashcards</button></div>`;
   $("#again").onclick=()=>go("qcm");$("#cardsGo").onclick=()=>go("cards");
   window.scrollTo(0,0);
