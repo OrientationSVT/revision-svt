@@ -83,6 +83,14 @@ footer button{background:none;border:0;color:var(--muted);text-decoration:underl
 .fig .box{fill:var(--pri-soft);stroke:var(--line);stroke-width:1.5}
 .fig .dash{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:5 4}
 .fig .fl{font-weight:700;fill:var(--pri)}
+.fig .cell{fill:none;stroke:var(--ink);stroke-width:1.4}
+.fig .eqx{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
+.fig .kP{fill:#3b6fd8} .fig .kM{fill:#e04848} .fig .kG{fill:#8d949c}
+.fig .band{fill:#fff;stroke:#1b2a27;stroke-width:1}
+.fig .gene{fill:#111;stroke:#fff;stroke-width:.8}
+.fig .al{font-size:12px;font-weight:700}
+.fig .chi{fill:none;stroke:var(--warn);stroke-width:2.5}
+.fig .dashl{stroke-dasharray:5 4}
 .fig .cov rect{fill:var(--pri)} .fig .cov text{fill:var(--pri-ink);font-weight:800}
 .fz{cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none} .fz .fl{visibility:hidden} .fz.on .fl{visibility:visible} .fz.on .cov{display:none}
 .fig .let circle{fill:var(--warn-bg);stroke:var(--warn);stroke-width:2} .fig .let text{fill:var(--warn);font-weight:800}
@@ -357,6 +365,356 @@ CHAPITRES.push({
   ]
 });
 
+CHAPITRES.push({
+  id: "G2",
+  court: "Ch. 2 · Reproduction sexuée et diversité",
+  titre: "Génétique et évolution · Chapitre 2 : Le brassage des génomes à chaque génération : la reproduction sexuée des eucaryotes",
+  /* Schémas : figures dessinées (SVG), schémas à dessiner */
+  figs: {
+    "G2-f01": { titre: "Méiose d'une cellule hétérozygote (L//r)", vb: "0 0 400 466",
+      labels: {1:"Métaphase I", 2:"Anaphase I", 3:"Anaphase II", 4:"Gamètes (n)", 5:"1/4"},
+      draw: (L,A,H)=>{
+        let s=H.cell(200,75,75,55)+H.eq(200,24,126);
+        s+=H.chr(184,45,60,{c:"P",dbl:true,bands:[[.35,"L","l"]]})+H.chr(216,45,60,{c:"M",dbl:true,bands:[[.35,"r","r"]]});
+        s+=A([170,128],[115,178],0)+A([230,128],[285,178],0);
+        s+=H.cell(110,220,55,40)+H.cell(290,220,55,40);
+        s+=H.chr(110,192,56,{c:"P",dbl:true,bands:[[.35,"L","l"]]})+H.chr(290,192,56,{c:"M",dbl:true,bands:[[.35,"r","r"]]});
+        s+=A([95,262],[60,320],0)+A([125,262],[155,320],0)+A([275,262],[245,320],0)+A([305,262],[340,320],0);
+        [[55,"P","L","l"],[155,"P","L","l"],[245,"M","r","r"],[345,"M","r","r"]].forEach(g=>{s+=H.cell(g[0],360,34,34)+H.chr(g[0],336,48,{c:g[1],bands:[[.35,g[2],g[3]]]});});
+        s+=`<path class="ln" d="M25,428 v6 H375 v-6"/>`;
+        s+=L(1,290,32,"start")+L(2,200,165)+L(3,200,300)+L(5,55,418)+L(5,155,418)+L(5,245,418)+L(5,345,418)+L(4,200,456);
+        return s;
+      } },
+    "G2-f02": { titre: "Brassage interchromosomique (gènes indépendants vg et eb)", vb: "0 0 400 462",
+      labels: {1:"Métaphase I", 2:"Gamètes parentaux", 3:"Gamètes recombinés", 4:"25 %", 5:"Brassage interchromosomique"},
+      draw: (L,A,H)=>{
+        let s=H.t(100,18,"Disposition 1")+H.t(300,18,"Disposition 2");
+        [[100,"P","M"],[300,"M","P"]].forEach(d=>{const x=d[0];
+          s+=H.cell(x,95,92,66)+H.eq(x,34,156);
+          s+=H.chr(x-18,42,52,{c:"P",dbl:true,bands:[[.6,"vg+","l"]]})+H.chr(x+18,42,52,{c:"M",dbl:true,bands:[[.6,"vg","r"]]});
+          s+=H.chr(x-18,112,28,{c:d[1],dbl:true,bands:[[.5,d[1]==="P"?"eb+":"eb","l"]]})+H.chr(x+18,112,28,{c:d[2],dbl:true,bands:[[.5,d[2]==="P"?"eb+":"eb","r"]]});
+        });
+        s+=A([80,163],[52,230],0)+A([120,163],[148,230],0)+A([280,163],[252,230],0)+A([320,163],[348,230],0);
+        [[50,"P","P","(vg+ ; eb+)"],[150,"M","M","(vg ; eb)"],[250,"P","M","(vg+ ; eb)"],[350,"M","P","(vg ; eb+)"]].forEach(g=>{
+          s+=H.cell(g[0],268,36,36)+H.chr(g[0]-9,246,42,{c:g[1],bands:[[.6]]})+H.chr(g[0]+9,262,22,{c:g[2],bands:[[.5]]})+H.t(g[0],322,g[3]);});
+        s+=`<path class="ln" d="M18,356 v6 H182 v-6"/><path class="ln" d="M218,356 v6 H382 v-6"/>`;
+        s+=L(1,200,188)+L(4,50,346)+L(4,150,346)+L(4,250,346)+L(4,350,346)+L(2,100,384)+L(3,300,384)+L(5,200,422);
+        s+=H.t(200,452,"Bleu : chromosomes reçus de P1 · rouge : reçus de P2");
+        return s;
+      } },
+    "G2-f03": { titre: "Brassage intrachromosomique (gènes liés vg et b)", vb: "0 0 400 448",
+      labels: {1:"Prophase I", 2:"Chiasma", 3:"Gamètes parentaux", 4:"Gamètes recombinés", 5:"Brassage intrachromosomique"},
+      draw: (L,A,H)=>{
+        let s=H.cell(200,98,112,74);
+        s+=H.chr(181,42,112,{c:"P",dbl:true,segs:[null,[[0,.52,"P"],[.52,1,"M"]]],bands:[[.25,"b+","l"],[.78,"vg+","l"]]});
+        s+=H.chr(219,42,112,{c:"M",dbl:true,segs:[[[0,.52,"M"],[.52,1,"P"]],null],bands:[[.25,"b","r"],[.78,"vg","r"]]});
+        s+=`<circle class="chi" cx="200" cy="100" r="10"/><line class="ln" x1="318" y1="58" x2="210" y2="96"/>`;
+        s+=A([150,170],[62,232],0)+A([185,174],[150,232],0)+A([215,174],[250,232],0)+A([250,170],[338,232],0);
+        [[60,[[0,1,"P"]],"(vg+ , b+)"],[150,[[0,1,"M"]],"(vg , b)"],[250,[[0,.52,"P"],[.52,1,"M"]],"(vg , b+)"],[340,[[0,.52,"M"],[.52,1,"P"]],"(vg+ , b)"]].forEach(g=>{
+          s+=H.cell(g[0],270,36,36)+H.chr(g[0],242,56,{segs:[g[1]],bands:[[.25],[.78]]})+H.t(g[0],324,g[2]);});
+        s+=`<path class="ln" d="M22,350 v6 H188 v-6"/><path class="ln" d="M212,350 v6 H378 v-6"/>`;
+        s+=L(1,12,30,"start")+L(2,392,54,"end")+L(3,105,378)+L(4,295,378)+L(5,200,416);
+        s+=H.t(200,440,"Ce crossing-over ne se produit pas à chaque méiose");
+        return s;
+      } },
+    "G2-f04": { titre: "Non-disjonction en anaphase I et conséquences après fécondation", vb: "0 0 400 530",
+      labels: {1:"Non-disjonction", 2:"Gamètes à n + 1", 3:"Gamètes à n − 1", 4:"Trisomie (2n + 1)", 5:"Monosomie (2n − 1)", 6:"Fécondation"},
+      draw: (L,A,H)=>{
+        let s=H.t(14,44,"Anaphase I","start")+H.cell(230,62,62,46);
+        s+=H.chr(219,36,54,{c:"P",dbl:true})+H.chr(241,36,54,{c:"M",dbl:true});
+        s+=A([205,106],[125,154],0)+`<line class="ln dashl" x1="255" y1="106" x2="285" y2="150"/>`;
+        s+=H.cell(110,190,55,38)+H.cell(290,190,55,38);
+        s+=H.chr(99,166,48,{c:"P",dbl:true})+H.chr(121,166,48,{c:"M",dbl:true});
+        s+=A([95,228],[62,270],0)+A([125,228],[150,270],0)+A([275,228],[250,270],0)+A([305,228],[338,270],0);
+        [60,150,250,340].forEach((x,i)=>{s+=H.cell(x,305,32,32);if(i<2)s+=H.chr(x-7,286,38,{c:"P"})+H.chr(x+7,286,38,{c:"M"});});
+        s+=A([105,366],[108,444],0)+A([295,366],[292,444],0);
+        s+=H.t(200,380,"gamète normal")+H.cell(200,410,18,18)+H.chr(200,399,22,{c:"G"});
+        s+=A([186,420],[146,452],0)+A([214,420],[254,452],0);
+        s+=H.cell(110,476,44,28)+H.chr(96,458,36,{c:"P"})+H.chr(110,458,36,{c:"M"})+H.chr(124,458,36,{c:"G"});
+        s+=H.cell(290,476,44,28)+H.chr(290,458,36,{c:"G"});
+        s+=L(1,14,70,"start")+L(2,105,356)+L(3,295,356)+L(6,394,412,"end")+L(4,110,524)+L(5,290,524);
+        return s;
+      } },
+    "G2-f05": { titre: "Crossing-over inégal et duplication d'un gène", vb: "0 0 400 412",
+      labels: {1:"Appariement décalé", 2:"Crossing-over inégal", 3:"Duplication du gène", 4:"Perte du gène"},
+      draw: (L,A,H)=>{
+        let s=H.chr(178,30,120,{c:"P",gene:[.5]})+H.chr(222,60,120,{c:"M",gene:[.5]});
+        s+=`<circle class="chi" cx="200" cy="105" r="10"/><line class="ln" x1="300" y1="48" x2="209" y2="100"/>`;
+        s+=`<rect class="gene" x="318" y="168" width="14" height="6"/>`+H.t(338,175,"= le gène","start");
+        s+=A([200,160],[200,206],0);
+        s+=H.chr(120,222,150,{segs:[[[0,.5,"P"],[.5,1,"M"]]],gene:[.4,.6]})+H.chr(280,252,90,{segs:[[[0,.5,"M"],[.5,1,"P"]]]});
+        s+=L(1,12,40,"start")+L(2,392,40,"end")+L(3,120,398)+L(4,280,398);
+        return s;
+      } }
+  },
+  schemas: [
+    { id: "G2-s01", fig: "G2-f01", titre: "Méiose d'une cellule hétérozygote",
+      consigne: "Schématise la méiose d'une cellule hétérozygote (L//r) en ne représentant que la paire de chromosomes portant le gène. Montre que chaque allèle a la même probabilité de se retrouver dans un gamète.",
+      criteres: ["Une paire de chromosomes homologues à deux chromatides, portant L et r", "Anaphase I : séparation des chromosomes homologues", "Anaphase II : séparation des chromatides", "Quatre gamètes à un seul chromosome (n)", "Moitié des gamètes avec L, moitié avec r", "Phases nommées et un titre"],
+      src: "Cours, diapos 14 à 17", verif: "Schéma original d'après votre diapo 16 : à valider." },
+    { id: "G2-s02", fig: "G2-f02", titre: "Brassage interchromosomique",
+      consigne: "Schématise la méiose d'un individu (vg+//vg ; eb+//eb), les deux gènes étant indépendants. Montre l'origine des quatre types de gamètes et leurs proportions.",
+      criteres: ["Deux paires de chromosomes, une par gène", "Les deux dispositions possibles en métaphase I", "Quatre types de gamètes avec leur génotype", "Gamètes parentaux et recombinés identifiés", "25 % pour chaque type de gamète", "Un titre et le nom du brassage"],
+      src: "Cours, diapos 62 à 69 et 93 · BO", verif: "Schéma original d'après vos diapos 62 à 64 : à valider." },
+    { id: "G2-s03", fig: "G2-f03", titre: "Brassage intrachromosomique",
+      consigne: "Schématise la méiose d'un individu (vg+ , b+ // vg , b), les deux gènes étant liés, dans le cas où un crossing-over se produit entre eux.",
+      criteres: ["Une seule paire de chromosomes portant les deux gènes", "Crossing-over en prophase I, au niveau d'un chiasma", "Échange de fragments entre chromatides de chromosomes homologues", "Deux gamètes parentaux et deux gamètes recombinés", "Les recombinés sont minoritaires car le crossing-over n'a pas lieu à chaque méiose", "Un titre et le nom du brassage"],
+      src: "Cours, diapos 86 à 93 · BO", verif: "Schéma original d'après votre diapo 87 : à valider." },
+    { id: "G2-s04", fig: "G2-f04", titre: "Une anomalie du nombre de chromosomes",
+      consigne: "Schématise comment une non-disjonction d'une paire de chromosomes en anaphase I peut conduire, après fécondation, à une trisomie ou à une monosomie.",
+      criteres: ["Les deux chromosomes homologues migrent vers le même pôle en anaphase I", "Des gamètes à n + 1 et à n − 1", "Fécondation par un gamète normal (n)", "Une cellule-œuf trisomique (2n + 1) et une monosomique (2n − 1)", "Un titre"],
+      src: "Cours, diapos 97, 104, 109 et 111 · BO", verif: "Schéma original : à valider." },
+    { id: "G2-s05", fig: "G2-f05", titre: "Crossing-over inégal",
+      consigne: "Schématise comment un crossing-over inégal entre deux chromatides homologues peut aboutir à la duplication d'un gène.",
+      criteres: ["Deux chromatides homologues appariées de façon décalée", "Un crossing-over entre elles", "Une chromatide qui porte deux copies du gène", "Une chromatide qui a perdu le gène", "Un titre"],
+      src: "Cours, diapos 109 et 112", verif: "Schéma original : à valider." }
+  ],
+  qcm: [
+    // Compétence (champ n) : 1 = Restitution, 2 = Compréhension, 3 = Raisonnement
+    { id: "G2-q01", n: 1, q: "Comment appelle-t-on les différentes versions d'un même gène ?",
+      bonne: "Des allèles", faux: ["Des génotypes", "Des chromatides", "Des chromosomes homologues"],
+      expl: "Un gène est dit variable lorsqu'il existe plusieurs versions de ce gène : ce sont des allèles. Le génotype est l'ensemble des allèles d'un individu, une chromatide est une copie d'un chromosome, et les chromosomes homologues portent les mêmes gènes.",
+      notion: "Allèles", src: "Cours, diapo 7" },
+    { id: "G2-q02", n: 1, q: "Un individu qui possède deux allèles identiques d'un gène est dit…",
+      bonne: "homozygote pour ce gène", faux: ["hétérozygote pour ce gène", "haploïde pour ce gène", "dominant pour ce gène"],
+      expl: "Deux allèles identiques : homozygote. Deux allèles différents : hétérozygote. Haploïde désigne une cellule à un seul lot de chromosomes, et « dominant » qualifie un allèle, pas un individu.",
+      notion: "Homozygote et hétérozygote", src: "Cours, diapo 9" },
+    { id: "G2-q03", n: 1, q: "Qu'est-ce qu'une lignée pure ?",
+      bonne: "Des individus de même génotype, homozygotes pour les gènes étudiés",
+      faux: ["Des individus de même génotype, hétérozygotes pour les gènes étudiés", "Des individus issus d'un seul parent par reproduction asexuée", "Des individus qui ne portent aucune mutation"],
+      expl: "Dans une lignée pure, les individus ont le même génotype et sont homozygotes pour les gènes responsables des caractères étudiés. Ce ne sont ni des hétérozygotes, ni forcément des clones, et ils peuvent porter des allèles mutés.",
+      notion: "Lignée pure", src: "Cours, diapos 9 et 40" },
+    { id: "G2-q04", n: 1, q: "Comment s'écrit le génotype d'un individu hétérozygote pour un gène dont les allèles sont L et r ?",
+      bonne: "(L//r)", faux: ["[L//r]", "[L]", "(L)"],
+      expl: "Le génotype s'écrit entre parenthèses, les deux allèles étant séparés par une double barre oblique : (L//r). Le phénotype s'écrit entre crochets : [L].",
+      notion: "Conventions d'écriture", src: "Cours, diapos 9 et 13" },
+    { id: "G2-q05", n: 1, q: "Un individu (L//r) a le phénotype [L]. Comment qualifie-t-on l'allèle r ?",
+      bonne: "Récessif", faux: ["Dominant", "Codominant", "Homozygote"],
+      expl: "Chez l'hétérozygote, seul L s'exprime dans le phénotype : L est dominant et r est récessif. « Homozygote » qualifie un individu, pas un allèle.",
+      notion: "Dominance et récessivité", src: "Cours, diapo 13" },
+    { id: "G2-q06", n: 1, q: "Dans le système ABO, un individu (A//B) est de groupe AB. Comment qualifie-t-on alors les allèles A et B ?",
+      bonne: "Codominants", faux: ["Récessifs", "Homozygotes", "Liés"],
+      expl: "Chez un individu (A//B), les deux allèles s'expriment : il possède les marqueurs A et B. On dit que A et B sont codominants. L'allèle O, lui, est récessif.",
+      notion: "Dominance et récessivité", src: "Cours, diapo 18 · BO" },
+    { id: "G2-q07", n: 1, q: "Comment appelle-t-on un chromosome non sexuel ?",
+      bonne: "Un autosome", faux: ["Un gonosome", "Un chromosome homologue", "Une chromatide"],
+      expl: "Un autosome est un chromosome non sexuel (22 paires chez l'être humain). Un gonosome est un chromosome sexuel (X ou Y).",
+      notion: "Maladies génétiques", src: "Activité 2.2 · Cours, diapo 32" },
+    { id: "G2-q08", n: 1, q: "Dans une maladie autosomique récessive, comment qualifie-t-on un individu hétérozygote ?",
+      bonne: "Un porteur sain", faux: ["Un malade", "Un homozygote récessif", "Un individu de lignée pure"],
+      expl: "L'hétérozygote n'est pas malade, car l'allèle sain dominant s'exprime, mais il peut transmettre l'allèle muté à ses enfants : c'est un porteur sain.",
+      notion: "Maladies génétiques", src: "Activité 2.2 · Cours, diapo 32" },
+    { id: "G2-q09", n: 1, q: "Qu'est-ce qu'un croisement-test ?",
+      bonne: "Le croisement avec un individu homozygote récessif pour les gènes étudiés",
+      faux: ["Le croisement de deux individus hétérozygotes pour les gènes étudiés", "Le croisement de deux lignées pures de phénotypes différents", "Le croisement avec un individu de phénotype sauvage, de lignée pure"],
+      expl: "Un croisement-test se fait avec un individu homozygote récessif (double récessif pour deux gènes). Ses gamètes n'apportent que des allèles récessifs : les phénotypes des descendants révèlent directement les gamètes de l'autre parent.",
+      notion: "Croisement-test", src: "Cours, diapos 69 et 74" },
+    { id: "G2-q10", n: 1, q: "À quelle phase de la méiose se produit le crossing-over ?",
+      bonne: "En prophase I", faux: ["En métaphase I", "En anaphase II", "En télophase II"],
+      expl: "Le crossing-over a lieu en prophase I, lorsque les chromosomes homologues sont appariés : des fragments de chromatides sont échangés au niveau des chiasmas.",
+      notion: "Brassage intrachromosomique", src: "Cours, diapos 86 et 89" },
+    { id: "G2-q11", n: 1, q: "Comment appelle-t-on la zone où les chromatides de deux chromosomes homologues se croisent ?",
+      bonne: "Un chiasma", faux: ["Un centromère", "Le plan équatorial", "Une chromatide"],
+      expl: "Le chiasma est la zone où les chromatides se croisent et où le crossing-over a lieu. Le centromère relie les deux chromatides d'un même chromosome.",
+      notion: "Brassage intrachromosomique", src: "Cours, diapos 86 et 89" },
+    { id: "G2-q12", n: 1, q: "Que signifie l'expression « deux gènes liés » ?",
+      bonne: "Ils sont situés sur la même paire de chromosomes",
+      faux: ["Ils sont situés sur deux paires de chromosomes différentes", "Ils codent la même protéine", "Ils ont toujours les mêmes allèles"],
+      expl: "Des gènes liés sont portés par la même paire de chromosomes. Des gènes situés sur des paires différentes sont dits indépendants.",
+      notion: "Gènes liés et indépendants", src: "Cours, diapos 73, 82 et 93" },
+    { id: "G2-q13", n: 1, q: "Qu'est-ce que la polyploïdisation ?",
+      bonne: "L'augmentation du nombre de lots de chromosomes",
+      faux: ["L'augmentation du nombre de copies d'un seul gène", "La perte d'un chromosome d'une seule paire", "L'échange de fragments entre chromatides homologues"],
+      expl: "La polyploïdisation augmente le nombre de lots de chromosomes (par exemple 3n chez la banane cultivée). L'augmentation du nombre de copies d'un gène est une duplication génique, la perte d'un chromosome une monosomie, l'échange de fragments un crossing-over.",
+      notion: "Accidents de la méiose", src: "Cours, diapos 100, 109 et 110" },
+    { id: "G2-q14", n: 1, q: "Qu'est-ce qu'une famille multigénique ?",
+      bonne: "Les gènes issus de la duplication d'un même gène ancestral",
+      faux: ["Les gènes situés côte à côte sur un même chromosome", "Les différents allèles d'un même gène dans une population", "Les gènes hérités d'un même parent lors de la fécondation"],
+      expl: "Une famille multigénique est l'ensemble des gènes d'un génome issus de la duplication d'un même gène ancestral, comme les gènes des globines. Ce sont des gènes différents, pas des allèles d'un même gène.",
+      notion: "Familles multigéniques", src: "Cours, diapo 127 · Activité 2.5" },
+    { id: "G2-q15", n: 1, q: "Au-delà de quel pourcentage de similitude considère-t-on généralement que deux séquences sont homologues ?",
+      bonne: "20 %", faux: ["50 %", "90 %", "100 %"],
+      expl: "On admet que deux séquences présentant plus de 20 % de similitudes sont homologues : une telle ressemblance ne peut être due au hasard et indique une origine commune.",
+      notion: "Familles multigéniques", src: "Activité 2.5, document 2 · Cours, diapo 124" },
+
+    { id: "G2-q16", n: 2, q: "Quelle proportion des gamètes d'un individu (L//r) porte l'allèle r ?",
+      bonne: "50 %", faux: ["25 %", "75 %", "100 %"],
+      expl: "Lors de la méiose, les deux chromosomes homologues se séparent : la moitié des gamètes reçoit L, l'autre moitié reçoit r. Chaque allèle a la même probabilité de se retrouver dans un gamète.",
+      notion: "Méiose et transmission des allèles", src: "Cours, diapos 16 et 17 · BO" },
+    { id: "G2-q17", n: 2, q: "Le croisement de deux lignées pures [L] et [r] donne 100 % de descendants [L]. Que peut-on en déduire ?",
+      bonne: "L'allèle L est dominant et l'allèle r est récessif",
+      faux: ["L'allèle r a définitivement disparu chez les descendants", "Les descendants sont homozygotes (L//L)", "Les allèles L et r sont codominants"],
+      expl: "Les descendants ont reçu L d'un parent et r de l'autre : ils sont (L//r). Comme ils sont tous [L], L est dominant et r récessif. L'allèle r n'a pas disparu : il est masqué et peut réapparaître à la génération suivante.",
+      notion: "Dominance et récessivité", src: "Cours, diapos 12 et 13" },
+    { id: "G2-q18", n: 2, q: "Deux individus de phénotype [L] peuvent-ils avoir des génotypes différents ?",
+      bonne: "Oui : (L//L) ou (L//r), car L est dominant",
+      faux: ["Non : un même phénotype correspond toujours au même génotype", "Oui : (L//r) ou (r//r), car r est récessif", "Non : seuls les homozygotes ont le phénotype [L]"],
+      expl: "L étant dominant, un seul exemplaire suffit pour avoir le phénotype [L] : un individu [L] peut être (L//L) ou (L//r). Un individu (r//r) est [r].",
+      notion: "Génotype et phénotype", src: "Cours, diapos 9 et 13" },
+    { id: "G2-q19", n: 2, q: "Quel est le génotype d'une personne de groupe sanguin O ?",
+      bonne: "(O//O)", faux: ["(A//O)", "(B//O)", "(A//B)"],
+      expl: "L'allèle O est récessif : il ne s'exprime qu'en deux exemplaires. Une personne (A//O) est de groupe A, (B//O) de groupe B et (A//B) de groupe AB.",
+      notion: "Dominance et récessivité", src: "Cours, diapo 18" },
+    { id: "G2-q20", n: 2, q: "Pourquoi une maladie récessive liée au chromosome X touche-t-elle surtout les garçons ?",
+      bonne: "Ils n'ont qu'un chromosome X : un seul allèle muté suffit pour être malade",
+      faux: ["Le chromosome Y porte lui aussi un exemplaire muté de ce gène", "Les filles éliminent l'allèle muté de leurs cellules lors de la méiose", "Les garçons reçoivent deux chromosomes X, tous deux venant de leur mère"],
+      expl: "Les gènes du chromosome X ne sont présents qu'en un exemplaire chez les garçons (XY) : un allèle récessif s'y exprime toujours. Chez les filles (XX), un allèle sain sur l'autre X masque le plus souvent l'allèle muté.",
+      notion: "Maladies génétiques", src: "Activité 2.2, question 2" },
+    { id: "G2-q21", n: 2, q: "Deux parents sains ont un enfant atteint d'une maladie monogénique. Que peut-on en déduire ?",
+      bonne: "L'allèle responsable de la maladie est récessif",
+      faux: ["L'allèle responsable de la maladie est dominant", "La maladie est forcément portée par le chromosome Y", "Les deux parents sont homozygotes pour l'allèle muté"],
+      expl: "Les parents, sains, portent l'allèle muté sans l'exprimer : il est donc récessif (en l'absence de mutation nouvelle). Un allèle dominant s'exprimerait chez le parent qui l'a transmis, et des parents homozygotes pour l'allèle muté seraient malades.",
+      notion: "Maladies génétiques", src: "Activité 2.2, question 3 · Cours, diapo 27" },
+    { id: "G2-q22", n: 2, q: "Qu'apporte le séquençage de l'ADN par rapport à l'étude d'un arbre généalogique seul ?",
+      bonne: "Il donne directement accès au génotype de chaque individu",
+      faux: ["Il permet de connaître le phénotype des ancêtres", "Il remplace l'allèle muté par l'allèle sain", "Il indique seulement le nombre de chromosomes de chaque cellule"],
+      expl: "L'arbre généalogique permet de calculer des probabilités. Le séquençage donne directement le génotype de chaque individu, ce qui rend le diagnostic plus précis : on sait par exemple si une personne saine est porteuse ou non.",
+      notion: "Maladies génétiques", src: "Cours, diapo 33 · BO" },
+    { id: "G2-q23", n: 2, q: "Lors d'un croisement-test, on obtient quatre phénotypes en proportions égales (25 % chacun). Que peut-on en déduire ?",
+      bonne: "Les deux gènes sont indépendants, sur deux paires de chromosomes différentes",
+      faux: ["Les deux gènes sont liés, c'est-à-dire sur la même paire de chromosomes", "Les allèles mutés des deux gènes sont tous les deux dominants", "Les deux gènes sont tous les deux portés par le chromosome X"],
+      expl: "Des gènes indépendants donnent quatre types de gamètes équiprobables, grâce aux deux dispositions équiprobables des paires de chromosomes en métaphase I : le croisement-test donne donc quatre phénotypes à 25 %. Dans le cadre du programme, on admet la réciproque : quatre phénotypes à 25 % permettent de conclure que les gènes sont indépendants.",
+      notion: "Gènes liés et indépendants", src: "Cours, diapos 68 et 69" },
+    { id: "G2-q24", n: 2, q: "Lors d'un croisement-test, on obtient deux phénotypes majoritaires (40 % chacun) et deux minoritaires (10 % chacun). Que peut-on en déduire ?",
+      bonne: "Les gènes sont liés ; les phénotypes minoritaires sont recombinés",
+      faux: ["Les gènes sont indépendants ; les phénotypes minoritaires viennent de mutations", "Les gènes sont liés ; les phénotypes minoritaires sont parentaux", "Les gènes sont indépendants ; les deux dispositions ne sont pas équiprobables"],
+      expl: "Avec des gènes liés, les gamètes parentaux sont majoritaires. Les phénotypes minoritaires correspondent aux gamètes recombinés, issus d'un crossing-over qui ne se produit pas à chaque méiose.",
+      notion: "Gènes liés et indépendants", src: "Cours, diapos 81 à 90" },
+    { id: "G2-q25", n: 2, q: "Quel mécanisme est à l'origine du brassage interchromosomique ?",
+      bonne: "La répartition aléatoire des homologues de chaque paire lors de la méiose I",
+      faux: ["L'échange de fragments de chromatides entre homologues en prophase I", "La séparation des chromatides de chaque chromosome en anaphase II", "La rencontre au hasard des gamètes lors de la fécondation"],
+      expl: "En métaphase I, les paires de chromosomes se disposent au hasard de part et d'autre du plan équatorial ; en anaphase I, chaque chromosome d'une paire migre vers l'un ou l'autre pôle. L'échange de fragments correspond au brassage intrachromosomique.",
+      notion: "Brassage interchromosomique", src: "Cours, diapos 69 et 93" },
+    { id: "G2-q26", n: 2, q: "Pourquoi les gamètes recombinés sont-ils minoritaires dans le cas de deux gènes liés ?",
+      bonne: "Le crossing-over entre ces deux gènes ne se produit pas à chaque méiose",
+      faux: ["Les gamètes recombinés meurent plus souvent que les gamètes parentaux", "Les gamètes recombinés ne peuvent pas participer à la fécondation", "Le crossing-over ne se produit qu'en anaphase II, dans une seule cellule"],
+      expl: "Les gamètes recombinés n'apparaissent que si un crossing-over a lieu entre les deux gènes, ce qui n'arrive pas à chaque méiose : ils restent minoritaires par rapport aux gamètes parentaux.",
+      notion: "Brassage intrachromosomique", src: "Cours, diapos 87 et 90" },
+    { id: "G2-q27", n: 2, q: "Chez la drosophile, on obtient 5 % de phénotypes recombinés entre vg et cn, et 20 % entre vg et b. Que peut-on en déduire ?",
+      bonne: "Le gène vg est plus éloigné de b que de cn sur le chromosome",
+      faux: ["Le gène vg est plus proche de b que de cn sur le chromosome", "Les gènes vg et cn sont sur deux chromosomes différents", "Les crossing-over sont plus rares entre vg et b qu'entre vg et cn"],
+      expl: "Plus deux gènes liés sont éloignés, plus un crossing-over a de chances de se produire entre eux, et plus la proportion de recombinés est élevée : vg est donc plus loin de b que de cn.",
+      notion: "Brassage intrachromosomique", src: "Cours, diapos 91 et 92" },
+    { id: "G2-q28", n: 2, q: "En ne considérant que le brassage interchromosomique, combien de gamètes génétiquement différents un être humain (23 paires de chromosomes) peut-il produire ?",
+      bonne: "2²³", faux: ["2 × 23", "23²", "2⁴⁶"],
+      expl: "Chaque paire peut se disposer de deux façons en métaphase I : avec 23 paires, on obtient 2²³ combinaisons, soit plus de 8 millions (en supposant au moins un gène hétérozygote par paire). 2⁴⁶ correspond aux combinaisons possibles chez les zygotes d'un couple.",
+      notion: "Diversité des gamètes", src: "Cours, diapos 68 et 96" },
+    { id: "G2-q29", n: 2, q: "Pourquoi chaque cellule-œuf possède-t-elle une combinaison d'allèles quasi unique ?",
+      bonne: "La fécondation réunit au hasard deux gamètes eux-mêmes très divers",
+      faux: ["La fécondation provoque des crossing-over entre les chromosomes des deux gamètes", "Chaque cellule-œuf reçoit tous les allèles de ses deux parents", "La fécondation crée de nouveaux allèles par mutation"],
+      expl: "La méiose produit des gamètes génétiquement très divers, et la fécondation en réunit deux au hasard : rien qu'avec le brassage interchromosomique, 2²³ × 2²³ = 2⁴⁶ combinaisons sont possibles. Les crossing-over ont lieu pendant la méiose, pas lors de la fécondation.",
+      notion: "Brassage lié à la fécondation", src: "Cours, diapo 96" },
+    { id: "G2-q30", n: 2, q: "Les deux chromosomes de la paire 21 ne se séparent pas lors de l'anaphase I. Quelle conséquence est possible après fécondation par un gamète normal ?",
+      bonne: "Une trisomie 21 ou une monosomie 21",
+      faux: ["Une polyploïdie touchant toutes les paires", "La duplication d'un gène de la paire 21", "Un crossing-over inégal sur la paire 21"],
+      expl: "Cette non-disjonction produit des gamètes à deux chromosomes 21 ou sans chromosome 21. Fécondés par un gamète normal, ils donnent une cellule-œuf trisomique ou monosomique pour la paire 21.",
+      notion: "Accidents de la méiose", src: "Cours, diapos 97, 104 et 109" },
+    { id: "G2-q31", n: 2, q: "Quel accident de la méiose peut augmenter le nombre de copies d'un gène ?",
+      bonne: "Un crossing-over inégal", faux: ["Une non-disjonction en anaphase I", "Une disposition aléatoire en métaphase I", "Une séparation normale des chromatides"],
+      expl: "Un crossing-over inégal entre chromatides homologues mal alignées donne une chromatide portant deux copies du gène : c'est une duplication génique.",
+      notion: "Accidents de la méiose", src: "Cours, diapos 109 et 112" },
+    { id: "G2-q32", n: 2, q: "Pourquoi les copies d'un gène dupliqué finissent-elles par différer les unes des autres ?",
+      bonne: "Chaque copie accumule ses propres mutations au cours du temps",
+      faux: ["La duplication modifie aussitôt la séquence de la copie", "Les copies échangent leurs séquences à chaque méiose", "Une seule des copies est transmise à la descendance"],
+      expl: "Après une duplication, les copies sont identiques ; elles évoluent ensuite indépendamment, par des mutations qui s'accumulent dans chacune : on dit qu'elles divergent.",
+      notion: "Familles multigéniques", src: "Cours, diapo 109 · Activité 2.5, document 2" },
+    { id: "G2-q33", n: 2, q: "Chez un corail, une maladie tue 98 à 100 % des individus d'une population issue de reproduction asexuée, contre 55 à 72 % dans une population issue de reproduction sexuée. Comment l'expliquer ?",
+      bonne: "La reproduction sexuée crée une diversité génétique : certains individus résistent",
+      faux: ["La reproduction sexuée produit davantage d'individus chaque jour, ce qui compense les pertes", "La reproduction sexuée produit des clones tous résistants à cette maladie", "La reproduction sexuée demande moins d'énergie, ce qui renforce les coraux"],
+      expl: "La reproduction sexuée produit des individus génétiquement différents : certains possèdent des combinaisons d'allèles qui leur permettent de survivre. D'après le cours, elle produit au contraire moins d'individus (15 par jour contre 50) et demande plus d'énergie.",
+      notion: "Intérêt de la reproduction sexuée", src: "Cours, diapos 2 à 6" },
+    { id: "G2-q34", n: 2, fig: {id:"G2-f03", letters:{4:"R"}, show:[1,2,3]}, q: "Sur ce schéma, que représentent les gamètes repérés par la lettre R ?",
+      bonne: "Des gamètes recombinés, issus du crossing-over",
+      faux: ["Des gamètes parentaux, sans échange de fragments", "Des gamètes issus d'une non-disjonction", "Des gamètes issus du brassage interchromosomique"],
+      expl: "Leur chromatide est faite de deux fragments, l'un d'origine paternelle et l'autre d'origine maternelle : ils sont issus du crossing-over survenu en prophase I. Ce sont des gamètes recombinés.",
+      notion: "Brassage intrachromosomique", src: "Cours, diapos 87 et 90", verif: "Schéma original (G2-f03) : à valider." },
+    { id: "G2-q35", n: 2, fig: {id:"G2-f04", letters:{4:"T"}, show:[1,2,3,6]}, q: "Sur ce schéma, quel est le caryotype de la cellule-œuf repérée par la lettre T ?",
+      bonne: "Une trisomie (2n + 1)", faux: ["Une monosomie (2n − 1)", "Un caryotype normal (2n)", "Une triploïdie (3n)"],
+      expl: "Le gamète à n + 1 apporte deux chromosomes de la paire, le gamète normal un troisième : la cellule-œuf possède trois exemplaires de ce chromosome, c'est une trisomie. Une triploïdie concernerait toutes les paires.",
+      notion: "Accidents de la méiose", src: "Cours, diapos 104, 109 et 111", verif: "Schéma original (G2-f04) : à valider." },
+
+    { id: "G2-q36", n: 3, q: "Deux parents sains sont porteurs (N//m) d'une maladie autosomique récessive. Quelle est la probabilité que leur enfant à naître soit atteint ?",
+      bonne: "1/4", faux: ["1/2", "3/4", "2/3"],
+      expl: "Chaque parent produit 1/2 de gamètes N et 1/2 de gamètes m. L'enfant est atteint s'il reçoit m de chacun : 1/2 × 1/2 = 1/4. 3/4 est la probabilité qu'il soit sain, 2/3 celle qu'un enfant sain soit porteur.",
+      notion: "Calculs de risque", src: "Cours, diapo 28 · Activité 2.2" },
+    { id: "G2-q37", n: 3, q: "Ces mêmes parents (N//m) ont un enfant sain. Quelle est la probabilité qu'il soit porteur (N//m) ?",
+      bonne: "2/3", faux: ["1/2", "1/4", "3/4"],
+      expl: "On sait que l'enfant est sain : on élimine la case (m//m). Parmi les 3/4 d'enfants sains, 2/4 sont (N//m) : (2/4) / (3/4) = 2/3. Le piège est de répondre 1/2, valable avant de savoir qu'il est sain.",
+      notion: "Calculs de risque", src: "Cours, diapo 29 · Activité 2.2" },
+    { id: "G2-q38", n: 3, q: "En Bretagne, environ 1 personne sur 27 est porteuse de la mucoviscidose. Un homme sain, dont les deux parents sont porteurs (N//m), a un enfant avec une Bretonne sans antécédent familial. Quelle est la probabilité que l'enfant soit atteint ?",
+      bonne: "2/3 × 1/27 × 1/4 = 1/162", faux: ["1/27 × 1/4 = 1/108", "1/2 × 1/27 × 1/4 = 1/216", "2/3 × 1/4 = 1/6"],
+      expl: "Trois conditions doivent être réunies : l'homme est porteur (2/3, car on sait qu'il est sain), la femme est porteuse (1/27 en Bretagne) et chacun transmet m (1/4). On multiplie : 2/324 = 1/162, soit environ 0,6 %. Les autres réponses oublient une condition ou utilisent 1/2 au lieu de 2/3.",
+      notion: "Calculs de risque", src: "Cours, diapos 20 et 30" },
+    { id: "G2-q39", n: 3, q: "Une maladie est due à un allèle dominant b+ porté par un autosome. Une femme saine et un homme atteint ont une fille atteinte. Quel est le génotype de la fille ?",
+      bonne: "(b+//b) : sa mère saine ne peut lui avoir transmis que b",
+      faux: ["(b+//b+) : elle est atteinte, donc forcément homozygote", "(b//b) : l'allèle de la maladie est en réalité récessif", "(b+//b) ou (b+//b+) : on ne peut pas conclure"],
+      expl: "L'allèle b+ étant dominant, une personne saine ne porte aucun b+ : la mère est (b//b) et transmet b. La fille, atteinte, a reçu b+ de son père : elle est forcément (b+//b).",
+      notion: "Arbres généalogiques", src: "Cours, diapos 22 à 26" },
+    { id: "G2-q40", n: 3, q: "Dans une famille, une femme est atteinte d'une maladie récessive alors que son père est sain. Que peut-on en déduire ?",
+      bonne: "Le gène n'est pas sur l'X : un père sain ne peut pas transmettre un X muté",
+      faux: ["Le gène est sur le chromosome X, puisque la maladie touche une femme", "L'allèle responsable est dominant, puisque le père est sain", "Sa mère est forcément atteinte de la maladie"],
+      expl: "Si le gène était sur X, cette femme serait (Xm//Xm) et aurait reçu un Xm de son père, qui serait alors (Xm//Y), donc malade. Or son père est sain : le gène est porté par un autosome. La mère peut être simple porteuse.",
+      notion: "Arbres généalogiques", src: "Cours, diapo 23 · Activité 2.2, question 3" },
+    { id: "G2-q41", n: 3, q: "Le séquençage du gène CFTR montre que deux parents sains portent chacun un allèle sain et un allèle R553X. Leur fils porte deux allèles R553X, leur fille deux allèles sains. Que peut-on conclure ?",
+      bonne: "Le fils est atteint ; la fille n'est pas porteuse de l'allèle R553X",
+      faux: ["Le fils est porteur sain, puisque ses deux parents sont sains", "La fille est porteuse saine avec une probabilité de 2/3", "Le fils et la fille sont tous les deux porteurs sains"],
+      expl: "La mucoviscidose est autosomique récessive : avec deux allèles mutés, le fils est atteint. La fille a deux allèles sains : elle n'est pas porteuse. Le séquençage remplace ici le calcul de probabilité (2/3), qui ne valait qu'en l'absence de génotype connu.",
+      notion: "Maladies génétiques", src: "Activité 2.2, document 4 et question 5" },
+    { id: "G2-q42", n: 3, q: "Une drosophile (vg+//vg ; eb+//eb), dont les deux gènes sont indépendants, est croisée avec une drosophile (vg//vg ; eb//eb). Quelle proportion de descendants [ailes vestigiales, corps jaune] attend-on ?",
+      bonne: "25 %", faux: ["0 %", "50 %", "10 %"],
+      expl: "L'hétérozygote produit quatre types de gamètes équiprobables, dont (vg ; eb+). Le parent double récessif n'apporte que (vg ; eb) : 25 % des descendants sont (vg//vg ; eb+//eb), donc [ailes vestigiales, corps jaune].",
+      notion: "Brassage interchromosomique", src: "Cours, diapos 64 à 69" },
+    { id: "G2-q43", n: 3, q: "Une drosophile (vg+ , b+ // vg , b) est croisée avec une drosophile (vg , b // vg , b). S'il ne se produisait jamais de crossing-over, quels résultats obtiendrait-on ?",
+      bonne: "50 % [ailes normales, corps jaune] et 50 % [ailes vestigiales, corps noir]",
+      faux: ["25 % de chacun des quatre phénotypes, comme pour des gènes indépendants", "40 %, 40 %, 10 % et 10 %, comme dans les résultats observés", "100 % [ailes normales, corps jaune], comme à la génération F1'"],
+      expl: "Sans crossing-over, les deux gènes liés restent ensemble : l'individu ne produit que deux types de gamètes parentaux, (vg+ , b+) et (vg , b), à 50 % chacun. Les résultats observés (40/40/10/10) montrent donc que des crossing-over se produisent.",
+      notion: "Brassage intrachromosomique", src: "Cours, diapos 82 à 85" },
+    { id: "G2-q44", n: 3, q: "Données fictives. Un croisement-test donne 412 [ailes normales, corps jaune], 398 [ailes vestigiales, corps noir], 95 [ailes normales, corps noir] et 95 [ailes vestigiales, corps jaune]. Quel est le pourcentage de recombinés ?",
+      bonne: "19 %", faux: ["9,5 %", "81 %", "50 %"],
+      expl: "Les recombinés sont les deux phénotypes minoritaires : (95 + 95) / 1 000 = 19 %. 9,5 % ne compte qu'un des deux phénotypes recombinés, 81 % correspond aux parentaux. Ces proportions montrent que les gènes sont liés.",
+      notion: "Brassage intrachromosomique", src: "Cours, diapos 81 et 90",
+      verif: "Effectifs fictifs construits à partir de la démarche des diapos 81 à 90." },
+    { id: "G2-q45", n: 3, q: "On croise P1 [ailes normales, corps jaune] et P3 [ailes vestigiales, corps noir], deux lignées pures. Le croisement-test des descendants donne 40 %, 40 %, 10 % et 10 %. Quels phénotypes sont recombinés ?",
+      bonne: "[ailes normales, corps noir] et [ailes vestigiales, corps jaune]",
+      faux: ["[ailes normales, corps jaune] et [ailes vestigiales, corps noir]", "Les quatre phénotypes, en proportions égales", "[ailes normales, corps jaune] et [ailes normales, corps noir]"],
+      expl: "Les phénotypes parentaux sont ceux de P1 et P3 : ils sont majoritaires (40 %). Les phénotypes recombinés associent les caractères autrement : [ailes normales, corps noir] et [ailes vestigiales, corps jaune] (10 % chacun).",
+      notion: "Brassage intrachromosomique", src: "Cours, diapos 71 à 88" },
+    { id: "G2-q46", n: 3, q: "Une non-disjonction se produit en anaphase II, dans une seule des deux cellules issues de la méiose I. Quels gamètes obtient-on pour la paire concernée ?",
+      bonne: "Deux gamètes normaux, un gamète à n + 1 et un gamète à n − 1",
+      faux: ["Deux gamètes à n + 1 et deux gamètes à n − 1", "Quatre gamètes normaux, la méiose I s'étant bien déroulée", "Deux gamètes à n + 1 et deux gamètes normaux à n"],
+      expl: "La méiose I s'est déroulée normalement. Dans la cellule où les chromatides migrent vers le même pôle, on obtient un gamète à n + 1 et un à n − 1 ; l'autre cellule donne deux gamètes normaux. Deux n + 1 et deux n − 1 correspondent à une non-disjonction en anaphase I.",
+      notion: "Accidents de la méiose", src: "Cours, diapos 103 et 104" },
+    { id: "G2-q47", n: 3, q: "Ressemblances entre protéines de globines : bêta et delta 89,9 %, bêta et epsilon 75,5 %, bêta et zêta 35,6 %. Quelle conclusion est juste ?",
+      bonne: "Toutes sont homologues ; la duplication bêta–delta est la plus récente des trois",
+      faux: ["Seules bêta et delta sont homologues, car elles dépassent 50 %", "Toutes sont homologues ; la duplication bêta–zêta est la plus récente des trois", "Aucune n'est homologue, car aucune ressemblance n'atteint 90 %"],
+      expl: "Toutes les ressemblances dépassent 20 % : les gènes sont homologues et issus d'un même gène ancestral. Plus deux gènes se ressemblent, plus la duplication qui les a séparés est récente : c'est le cas de bêta et delta.",
+      notion: "Familles multigéniques", src: "Cours, diapos 122 à 127 · Activité 2.5" },
+    { id: "G2-q48", n: 3, q: "La banane cultivée possède trois lots de chromosomes (3n). Quelle origine est la plus probable ?",
+      bonne: "Un accident de méiose a produit un gamète à 2n, fécondé par un gamète normal à n",
+      faux: ["Un crossing-over inégal a dupliqué un gène sur chaque chromosome", "Une non-disjonction a touché une seule paire de chromosomes lors de la méiose", "Une fécondation normale entre deux gamètes à n, suivie d'une mutation"],
+      expl: "Une répartition anormale des chromosomes en méiose peut produire un gamète non réduit (2n) ; fécondé par un gamète normal (n), il donne un individu à 3n : c'est une polyploïdisation. Une non-disjonction d'une seule paire donnerait une trisomie, et un crossing-over inégal ne duplique qu'un gène.",
+      notion: "Accidents de la méiose", src: "Cours, diapos 100 et 109",
+      verif: "Le cours dit qu'une répartition inégale « peut conduire à l'augmentation du nombre de lots » ; le gamète à 2n est ma déduction." }
+  ],
+  cartes: [
+    { id: "G2-c01", t: "Définition", q: "Qu'est-ce qu'un allèle ?", a: "Une version d'un gène.", plus: "Un gène variable existe sous plusieurs allèles.", src: "Cours, diapo 7" },
+    { id: "G2-c02", t: "Définition", q: "Qu'est-ce qu'un individu hétérozygote ?", a: "Il possède deux allèles différents d'un gène.", plus: "Homozygote : deux allèles identiques.", src: "Cours, diapo 9" },
+    { id: "G2-c03", t: "Convention", q: "Comment noter génotype et phénotype ?", a: "Génotype (L//r) ; phénotype [L].", plus: "Allèle dominant noté avec un « + » : vg+.", src: "Cours, diapos 9 et 45" },
+    { id: "G2-c04", t: "Mécanisme", q: "Quelle part des gamètes reçoit chaque allèle ?", a: "La moitié : 50 % L, 50 % r.", plus: "Les homologues se séparent en anaphase I.", src: "Cours, diapos 16 et 17 · BO" },
+    { id: "G2-c05", t: "Définition", q: "Qu'est-ce qu'un croisement-test ?", a: "Un croisement avec un homozygote récessif.", plus: "Les phénotypes obtenus révèlent les gamètes de l'autre parent.", src: "Cours, diapo 69" },
+    { id: "G2-c06", t: "Mécanisme", q: "D'où vient le brassage interchromosomique ?", a: "De la répartition aléatoire des homologues en méiose I.", plus: "Gènes indépendants : quatre types de gamètes à 25 %.", src: "Cours, diapos 69 et 93" },
+    { id: "G2-c07", t: "Mécanisme", q: "D'où vient le brassage intrachromosomique ?", a: "Du crossing-over entre homologues en prophase I.", plus: "Gènes liés : les gamètes recombinés sont minoritaires.", src: "Cours, diapos 89 à 93" },
+    { id: "G2-c08", t: "Méthode", q: "Gènes liés ou indépendants : comment trancher ?", a: "Par un croisement-test.", plus: "4 phénotypes à 25 % : indépendants ; 2 majoritaires et 2 minoritaires : liés.", src: "Cours, diapos 69, 90 et 94" },
+    { id: "G2-c09", t: "Rôle", q: "Quel rôle joue la fécondation dans la diversité ?", a: "Elle réunit au hasard deux gamètes uniques.", plus: "Brassage interchromosomique seul : 2²³ × 2²³ = 2⁴⁶ combinaisons.", src: "Cours, diapo 96" },
+    { id: "G2-c10", t: "Méthode", q: "Parents sains, enfant malade : que conclure ?", a: "L'allèle de la maladie est récessif.", plus: "Si le gène est autosomique, les deux parents sont porteurs sains.", src: "Activité 2.2 · Cours, diapo 27" },
+    { id: "G2-c11", t: "Conséquence", q: "Que provoque une mauvaise répartition des chromosomes ?", a: "Une trisomie, une monosomie ou une polyploïdie.", plus: "Ex : trisomie 21 ; banane cultivée à 3n.", src: "Cours, diapos 97 et 109" },
+    { id: "G2-c12", t: "Origine", q: "Comment naît une famille multigénique ?", a: "Par duplications d'un gène ancestral, puis mutations.", plus: "Duplication par crossing-over inégal ; plus de 20 % de similitude : gènes homologues.", src: "Cours, diapos 109 et 127" },
+    { id: "G2-c13", t: "Schéma", fig: "G2-f01", q: "Légende la méiose d'une cellule (L//r).", a: "Métaphase I, anaphase I, anaphase II, gamètes : 1/4 chacun, la moitié avec L.", src: "Schéma original d'après votre diapo 16" },
+    { id: "G2-c14", t: "Schéma", fig: "G2-f02", q: "Légende le brassage interchromosomique.", a: "Deux dispositions équiprobables en métaphase I : 2 types parentaux et 2 types recombinés, 25 % chacun.", src: "Schéma original d'après vos diapos 62 à 64" },
+    { id: "G2-c15", t: "Schéma", fig: "G2-f03", q: "Légende le brassage intrachromosomique.", a: "Crossing-over en prophase I au niveau d'un chiasma : gamètes parentaux et gamètes recombinés.", src: "Schéma original d'après votre diapo 87" }
+  ]
+});
+
 
 /* ---------- Stockage local (sans compte) ---------- */
 const KEY="svt_rev_v1";
@@ -397,7 +755,21 @@ function figSVG(id,mode,opt){
     return `<g class="fz" data-k="${k}" role="button" tabindex="0" aria-label="Étiquette ${k}"><text class="fl" x="${x}" y="${y}" text-anchor="${an}">${t}</text><g class="cov"><rect x="${rx}" y="${y-17}" width="${w}" height="24" rx="6"/><text x="${rx+w/2}" y="${y}" text-anchor="middle">${k}</text></g></g>`;};
   const A=(a,b,r)=>{r=r===undefined?12:r;const dx=b[0]-a[0],dy=b[1]-a[1],d=Math.hypot(dx,dy),ux=dx/d,uy=dy/d;
     return `<line class="ln" x1="${(a[0]+ux*r).toFixed(1)}" y1="${(a[1]+uy*r).toFixed(1)}" x2="${(b[0]-ux*(r+3)).toFixed(1)}" y2="${(b[1]-uy*(r+3)).toFixed(1)}" marker-end="url(#ah)"/>`;};
-  return `<svg class="fig" viewBox="${f.vb}" role="img" aria-label="${esc(f.titre)}"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahp" d="M0,0L10,5L0,10z"/></marker></defs>${f.draw(L,A)}</svg>`;
+  const H={
+    cell:(cx,cy,rx,ry)=>`<ellipse class="cell" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/>`,
+    eq:(x,y1,y2)=>`<line class="eqx" x1="${x}" y1="${y1}" x2="${x}" y2="${y2}"/>`,
+    t:(x,y,txt,an)=>`<text class="bt" x="${x}" y="${y}" text-anchor="${an||"middle"}">${esc(txt)}</text>`,
+    /* chromosome : o.c couleur (P bleu, M rouge, G gris), o.dbl deux chromatides, o.segs segments par chromatide [[début,fin,couleur]], o.bands [[position,allèle,côté]], o.gene positions de gènes (bandes noires) */
+    chr:(x,y,len,o)=>{o=o||{};const c=o.c||"P",w=7,xs=o.dbl?[x-4.5,x+4.5]:[x];let s="";
+      xs.forEach((cx,i)=>{const sg=(o.segs&&o.segs[i])||[[0,1,c]];sg.forEach(g=>{s+=`<rect class="k${g[2]}" x="${cx-w/2}" y="${(y+g[0]*len).toFixed(1)}" width="${w}" height="${((g[1]-g[0])*len).toFixed(1)}" rx="3"/>`;});});
+      if(o.dbl)s+=`<rect class="k${c}" x="${x-5}" y="${y+len*.5-3}" width="10" height="6" rx="2"/>`;
+      const bw=o.dbl?20:10;
+      (o.bands||[]).forEach(b=>{const by=y+b[0]*len;s+=`<rect class="band" x="${x-bw/2}" y="${(by-2.5).toFixed(1)}" width="${bw}" height="5"/>`;
+        if(b[1]){const l=(b[2]||"l")==="l";s+=`<text class="al" x="${l?x-bw/2-4:x+bw/2+4}" y="${(by+4).toFixed(1)}" text-anchor="${l?"end":"start"}">${esc(b[1])}</text>`;}});
+      (o.gene||[]).forEach(t=>{s+=`<rect class="gene" x="${x-bw/2}" y="${(y+t*len-3).toFixed(1)}" width="${bw}" height="6"/>`;});
+      return s;}
+  };
+  return `<svg class="fig" viewBox="${f.vb}" role="img" aria-label="${esc(f.titre)}"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahp" d="M0,0L10,5L0,10z"/></marker></defs>${f.draw(L,A,H)}</svg>`;
 }
 function bindFig(root){root.querySelectorAll(".fz").forEach(z=>{const go=()=>root.querySelectorAll(`.fz[data-k="${z.dataset.k}"]`).forEach(y=>y.classList.add("on"));z.onclick=go;z.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}};});}
 const $=s=>document.querySelector(s);
